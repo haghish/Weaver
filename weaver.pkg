@@ -30,7 +30,6 @@ f weave.ado
 f help/weave.sthlp
 f help/weaver.sthlp
 f engine/codes.ado
-f help/codes.sthlp
 f engine/div.ado
 f help/div.sthlp
 f engine/html.ado
