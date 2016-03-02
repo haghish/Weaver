@@ -2,7 +2,7 @@
 {* * KEEP THIS FILE MINIMAL, ESPECIALLY IF THE TEXT IS REPEATED IN OTHER HELP FILES}{...}
 {* *! version 3.2  06Oct2015}{...}
 {* *! version 3.3  January, 2016}{...}
-{right:Version 3.3.5 : February, 2016}
+{right:Version 3.3.6 : March, 2016}
 {* *! cmd:help Weaver}{...}
 
 {phang}

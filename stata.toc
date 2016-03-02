@@ -1,0 +1,3 @@
+v 3
+d 'WEAVER': module to produce dynamic reports in HTML, LaTeX and PDF
+p weave

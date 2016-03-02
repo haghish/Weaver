@@ -47,7 +47,6 @@
 	Weaver version 3.3.6  February,  2015
 
 */
-cap prog drop tbl
 
 program define tbl
     version 11

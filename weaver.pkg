@@ -1,0 +1,61 @@
+d 'WEAVER': module to produce dynamic reports in HTML, LaTeX and PDF
+d
+d  Weaver produces dynamic reports in HTML, LaTeX, and PDF. It
+d includes a built-in  JavaScript syntax highlighter and a
+d simplified markup language which makes writing  and styling text
+d more convenient. Weaver is primarily a new log system that can 
+d be run in parallel with Stata smcl log system. However, it is not
+d autonomous and allows the users to select what should appear in
+d the HTML or LaTeX log. The log can is updated in real-time  and
+d the user can create a PDF preview of the document at any point. 
+d
+d KW: Dynamic Document
+d KW: Reproducible Research
+d KW: Pandoc
+d KW: MarkDoc
+d KW: Markdown
+d KW: smcl
+d KW: HTML
+d KW: LaTeX
+d KW: Log
+d
+d Requires: Stata version 11 
+d
+d Distribution-Date: 20160228
+d
+d Author: E.F. Haghish, University of Freiburg
+d Support: email haghish@@imbi.uni-freiburg.de
+d
+f weave.ado
+f weave.sthlp
+f weaver.sthlp
+f ../c/codes.ado
+f ../c/codes.sthlp
+f ../d/div.ado
+f ../d/div.sthlp
+f ../h/html.ado
+f ../h/html.sthlp
+f ../i/img.ado
+f ../i/img.sthlp
+f ../r/report.ado
+f ../r/report.sthlp
+f ../r/reportcheck.ado
+f ../r/results.ado
+f ../r/results.sthlp
+f ../t/tbl.ado
+f ../t/tbl.sthlp
+f ../t/txt.ado
+f ../t/txt.sthlp
+f weavend.ado
+f weavend.sthlp
+f weavercheck.ado
+f weavermarkup.ado
+f weavermath.ado
+f Weaver_Markup.sthlp
+f Weaver_mathematical_notation.sthlp
+f weaverpandoc.ado
+F weaversetup.do
+f weaverstyle.ado
+f weaverversion.ado
+f weaverwkhtmltopdf.ado
+f weaverzoom.ado
