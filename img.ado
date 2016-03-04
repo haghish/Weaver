@@ -60,7 +60,7 @@ version 11
 				else tokenize "`path'", parse("/")
 					
 				while !missing("`1'") {
-					if !missing("`3'") local WF "`WF'" +"`1'"	//avoid the last 2 
+					if !missing("`3'") local WF = "`WF'" +"`1'"	//avoid the last 2 
 					macro shift
 				} 
 				
