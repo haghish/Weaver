@@ -46,7 +46,8 @@ The Weaver markup codes are particularly important
 {syntab:{ul:Text alignment}}
 {synopt :{bf: [center]} txt {bf: [#]}}aligns the txt to the center of the page {p_end}
 {synopt :{bf: [right]} txt {bf: [#]}}aligns the txt to the right side of the page{p_end}
-{synopt :{bf: [box]} txt {bf: [#]}}places the text in a colored box to make it more destinctive from the rest of the document. It can be used for emphesizing a text. {p_end}
+{synopt :{bf: [mono]} txt {bf: [#]}}prints the text in mono-space font. {p_end}
+{synopt :{bf: [box]} txt {bf: [#]}}places the text in a colored box to make it more destinctive from the rest of the document. It can be used for emphesizing a text paragraph or a quotation. {p_end}
 
 {syntab:{ul:Text color}}
 {synopt :{bf: [blue]} txt {bf: [#]}}changes the txt color to blue {p_end}
