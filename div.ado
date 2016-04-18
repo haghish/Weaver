@@ -47,7 +47,8 @@
 */
 	
 program define div
-version 11
+
+//version 11		//fails with newer Stata commands
 	
 	
 	
