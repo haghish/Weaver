@@ -194,7 +194,7 @@ program define weave
 			
 			// Print information about the log as comment
 			tempname canvas 
-			capture file open `canvas' using $htmldoc , write text append
+			capture file open `canvas' using "$htmldoc" , write text append
 			
 			if "$weaverMarkup" == "html" {
 				file write `canvas' 											///
@@ -250,7 +250,7 @@ program define weave
 				 "resumed on:  {bf:`c(current_date)', `c(current_time)'}" _n
 				
 				tempname canvas 
-				capture file open `canvas' using $htmldoc , write text append
+				capture file open `canvas' using "$htmldoc" , write text append
 				
 				if "$weaverMarkup" == "html" {
 					file write `canvas' 										///
@@ -1271,7 +1271,7 @@ program define weave
 			
 			weaverstyle, style("`style'") font("`font'")  `landscape' markup("`markup'")
 			
-			capture file open `canvas' using $htmldoc , write text append
+			capture file open `canvas' using "$htmldoc" , write text append
 			
 			
 			********************************************************************
@@ -1284,7 +1284,7 @@ program define weave
 			
 				weavermarkup 
 
-				capture file open `canvas' using $htmldoc , write text append
+				capture file open `canvas' using "$htmldoc" , write text append
 				
 				********************************************************************
 				* JQuary files
@@ -1329,7 +1329,7 @@ program define weave
 				
 				weaverzoom
 				
-				capture file open `canvas' using $htmldoc , write text append
+				capture file open `canvas' using "$htmldoc" , write text append
 					
 				********************************************************************
 				* JavaScript Syntax Highlighter for Stata
@@ -1338,8 +1338,8 @@ program define weave
 					
 					file close `canvas'
 					global weaverstatax weaverstatax	// Communicates with Statax
-					statax using $htmldoc,  css("`template'") append 
-					capture file open `canvas' using $htmldoc , write text append
+					statax using "$htmldoc",  css("`template'") append 
+					capture file open `canvas' using "$htmldoc" , write text append
 				}
 			
 			}

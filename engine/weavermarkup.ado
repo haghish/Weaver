@@ -31,7 +31,7 @@ program define weavermarkup
     version 11
 	
 	tempname canvas 
-	capture file open `canvas' using $htmldoc , write text append
+	capture file open `canvas' using "$htmldoc" , write text append
 			
 	********************************************************************
 	* JavaScript Markdown Syntax

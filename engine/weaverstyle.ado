@@ -41,7 +41,7 @@ program define weaverstyle
 	[markup(str)]
 	
 	tempname canvas 
-	capture file open `canvas' using $htmldoc , write text append
+	capture file open `canvas' using "$htmldoc" , write text append
 			
 	********************************************************************
 	* Stata STYLE
