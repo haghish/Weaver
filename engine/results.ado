@@ -40,7 +40,7 @@
 		
 
 program define results
-version 11
+//version 11
 
     tempname canvas needle
 	tempfile smcl								//smcl log

@@ -253,6 +253,12 @@ program define weavercheck
 		if "`r(fn)'" ~= "" {
 			global setpath "/usr/texbin/pdflatex"
 		}
+		if missing("$setpath") {
+			cap quietly findfile pdflatex, path("/Library/TeX/texbin/")
+			if "`r(fn)'" ~= "" {
+				global setpath "/Library/TeX/texbin/pdflatex"
+			}
+		}
 	}
 	
 	// UNIX 

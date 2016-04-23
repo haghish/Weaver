@@ -13,11 +13,7 @@
 	software are downloaded from http://www.stata-blog.com/ 			
 	
 	
-	Weaver version 1.3  September, 2014
-	Weaver version 1.4  October, 2014 
-	Weaver version 1.5  April, 2015
-	Weaver version 3.0  September, 2015
-	Weaver version 3.1  September, 2015
+	Weaver version 3.3.5
 */
 	
 	
@@ -26,6 +22,27 @@
 	program define weaverwkhtmltopdf
 	version 11
 	
+	di _n
+	di as txt 																	///
+	" ____  _                      __        __    _ _   " _n 					///
+	"|  _ \| | ___  __ _ ___  ___  \ \      / /_ _(_) |_ " _n 					///
+	"| |_) | |/ _ \/ _` / __|/ _ \  \ \ /\ / / _` | | __|" _n 					///
+	"|  __/| |  __/ (_| \__ \  __/   \ V  V / (_| | | |_ " _n 					///
+	"|_|   |_|\___|\__,_|___/\___|    \_/\_/ \__,_|_|\__|" _n 
+		
+	di as txt "{p}make sure you are " 							///
+	"connected to internet. This may take a while..." _n(2)
+	
+	//Test for Internet connection
+	macro drop thenewestweaverversion
+	cap qui do "http://www.haghish.com/packages/update.do"
+	if missing("$thenewestweaverversion") {
+		di as err "{p}Internet connection not found!"
+		exit 0
+	}
+	
+	
+		
 	********************************************************************
 	*MICROSOFT WINDOWS 32BIT & 64BIT
 	********************************************************************
@@ -38,35 +55,23 @@
 		qui cd Weaver
 		local d : pwd
 		
-		di _n
-		di as txt ///
-		" ____  _                      __        __    _ _   " _n ///
-		"|  _ \| | ___  __ _ ___  ___  \ \      / /_ _(_) |_ " _n ///
-		"| |_) | |/ _ \/ _` / __|/ _ \  \ \ /\ / / _` | | __|" _n ///
-		"|  __/| |  __/ (_| \__ \  __/   \ V  V / (_| | | |_ " _n ///
-		"|_|   |_|\___|\__,_|___/\___|    \_/\_/ \__,_|_|\__|" _n 
+		di as txt "Installing wkhtmltopdf in {browse `d'}" _n
 		
-		di as txt "{p}Required software packages are getting installed " ///
-		"in {browse `d'} directory. make sure you are " ///
-		"connected to internet. This may take a while..." _n(2)
-	
-		di as txt "Installing wkhtmltopdf driver... " _n
-			
 		// DOWNLOAD WKHTMLTOPDF AND UNZIP IT
-		cap qui copy "http://www.haghish.com/software/wkhtmltopdf_0.12.1.txt" ///
+		qui copy "http://www.haghish.com/software/wkhtmltopdf_0.12.1.txt" 		///
 		"wkhtmltopdf_0.12.1.txt", replace
 			
 		if "`c(bit)'" == "32" {
-			cap qui copy "http://www.haghish.com/software/Win/32bit/wkhtmltopdf.zip" ///
+			qui copy "http://www.haghish.com/software/Win/32bit/wkhtmltopdf.zip" ///
 			"wkhtmltopdf.zip", replace
 		}
 			
 		if "`c(bit)'" == "64" {
-			cap qui copy "http://www.haghish.com/software/Win/64bit/wkhtmltopdf.zip" ///
+			qui copy "http://www.haghish.com/software/Win/64bit/wkhtmltopdf.zip" ///
 			"wkhtmltopdf.zip", replace
 		}
 			
-		cap qui unzipfile wkhtmltopdf, replace
+		qui unzipfile wkhtmltopdf, replace
 		cap qui erase wkhtmltopdf.zip
 			
 		// GETTING THE PATH TO WKHTMLTOPDF
@@ -93,29 +98,17 @@
 		cap qui mkdir Weaver
 		qui cd Weaver
 		local d : pwd
-			
-		di _n
-		di as txt ///
-		" ____  _                      __        __    _ _   " _n ///
-		"|  _ \| | ___  __ _ ___  ___  \ \      / /_ _(_) |_ " _n ///
-		"| |_) | |/ _ \/ _` / __|/ _ \  \ \ /\ / / _` | | __|" _n ///
-		"|  __/| |  __/ (_| \__ \  __/   \ V  V / (_| | | |_ " _n ///
-		"|_|   |_|\___|\__,_|___/\___|    \_/\_/ \__,_|_|\__|" _n 
 		
-		di as txt "{p}Required software packages are getting installed " ///
-		"in {browse `d'} directory. make sure you are " ///
-		"connected to internet. This may take a while..." _n(2)
-			
-		di as txt "Installing wkhtmltopdf driver... " _n
+		di as txt "Installing wkhtmltopdf in {browse `d'}" _n
 		
 		// DOWNLOAD WKHTMLTOPDF AND UNZIP IT
-		cap qui copy "http://www.haghish.com/software/wkhtmltopdf_0.12.1.txt" ///
+		qui copy "http://www.haghish.com/software/wkhtmltopdf_0.12.1.txt" ///
 		"wkhtmltopdf_0.12.1.txt", replace
 			
-		cap qui copy "http://www.haghish.com/software/Mac/wkhtmltopdf.zip" ///
+		qui copy "http://www.haghish.com/software/Mac/wkhtmltopdf.zip" ///
 		"wkhtmltopdf.zip", replace
 			
-		cap qui unzipfile wkhtmltopdf, replace
+		qui unzipfile wkhtmltopdf, replace
 		cap qui erase wkhtmltopdf.zip
 		
 		
@@ -142,32 +135,20 @@
 		cap qui mkdir Weaver
 		qui cd Weaver
 		local d : pwd
-			
-		di _n
-		di as txt ///
-		" ____  _                      __        __    _ _   " _n ///
-		"|  _ \| | ___  __ _ ___  ___  \ \      / /_ _(_) |_ " _n ///
-		"| |_) | |/ _ \/ _` / __|/ _ \  \ \ /\ / / _` | | __|" _n ///
-		"|  __/| |  __/ (_| \__ \  __/   \ V  V / (_| | | |_ " _n ///
-		"|_|   |_|\___|\__,_|___/\___|    \_/\_/ \__,_|_|\__|" _n 
 		
-		di as txt "{p}Required software packages are getting installed " ///
-		"in {browse `d'} directory. make sure you are " ///
-		"connected to internet. This may take a while..." _n(2)
-			
-		di as txt "Installing wkhtmltopdf driver... " _n
+		di as txt "Installing wkhtmltopdf in {browse `d'}" _n
 		
 		// DOWNLOAD WKHTMLTOPDF AND UNZIP IT
-		cap qui copy "http://www.haghish.com/software/wkhtmltopdf_0.12.1.txt" ///
+		qui copy "http://www.haghish.com/software/wkhtmltopdf_0.12.1.txt" ///
 		"wkhtmltopdf_0.12.1.txt", replace
 			
 		if "`c(bit)'" == "32" {
-			cap qui copy "http://www.haghish.com/software/Unix/32bit/wkhtmltopdf.zip" ///
+			qui copy "http://www.haghish.com/software/Unix/32bit/wkhtmltopdf.zip" ///
 			"wkhtmltopdf.zip", replace
 		}
 			
 		if "`c(bit)'" == "64" {
-			cap qui copy "http://www.haghish.com/software/Unix/64bit/wkhtmltopdf.zip" ///
+			qui copy "http://www.haghish.com/software/Unix/64bit/wkhtmltopdf.zip" ///
 			"wkhtmltopdf.zip", replace
 		}
 			

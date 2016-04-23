@@ -13,7 +13,7 @@
 	software are downloaded from http://www.stata-blog.com/ 			
 	
 	
-	Weaver version 3.1  September, 2015
+	Weaver version 3.3.5
 */
 	
 	
@@ -22,6 +22,31 @@
 	program define weavermath
 	version 11
 	
+	di _n
+	di as txt 																	///
+	" ____  _                      __        __    _ _   " _n 					///
+	"|  _ \| | ___  __ _ ___  ___  \ \      / /_ _(_) |_ " _n 					///
+	"| |_) | |/ _ \/ _` / __|/ _ \  \ \ /\ / / _` | | __|" _n 					///
+	"|  __/| |  __/ (_| \__ \  __/   \ V  V / (_| | | |_ " _n 					///
+	"|_|   |_|\___|\__,_|___/\___|    \_/\_/ \__,_|_|\__|" _n 
+		
+	di as txt "{p}make sure you are " 							///
+	"connected to internet. This may take a while..." _n(2)
+	
+	//Test for Internet connection
+	macro drop thenewestweaverversion
+	cap qui do "http://www.haghish.com/packages/update.do"
+	if missing("$thenewestweaverversion") {
+		di as err "{p}Internet connection not found!"
+		exit 0
+	}
+
+	
+	//Test for Internet connection
+	macro drop thenewestweaverversion
+	
+		
+		
 	********************************************************************
 	*MICROSOFT WINDOWS 32BIT & 64BIT
 	********************************************************************
@@ -33,24 +58,12 @@
 		qui cd Weaver
 		local d : pwd
 		
-		di _n
-		di as txt ///
-		" ____  _                      __        __    _ _   " _n ///
-		"|  _ \| | ___  __ _ ___  ___  \ \      / /_ _(_) |_ " _n ///
-		"| |_) | |/ _ \/ _` / __|/ _ \  \ \ /\ / / _` | | __|" _n ///
-		"|  __/| |  __/ (_| \__ \  __/   \ V  V / (_| | | |_ " _n ///
-		"|_|   |_|\___|\__,_|___/\___|    \_/\_/ \__,_|_|\__|" _n 
+		di as txt "Installing MathJax in {browse `d'}" _n
 		
-		di as txt "{p}Required software packages are getting installed " ///
-		"in {browse `d'} directory. make sure you are " ///
-		"connected to internet. This may take a while..." _n
-		
-		di as txt "Installing MathJax ... " _n
-
-		cap qui copy "http://www.haghish.com/software/MathJax-master.zip" 		///
+		qui copy "http://www.haghish.com/software/MathJax-master.zip" 			///
 		"MathJax-master.zip", replace
 
-		cap qui unzipfile MathJax-master, replace
+		qui unzipfile MathJax-master, replace
 		cap qui erase MathJax-master.zip
 			
 		// GETTING THE PATH TO mathjax
@@ -77,25 +90,13 @@
 		cap qui mkdir Weaver
 		qui cd Weaver
 		local d : pwd
-			
-		di _n
-		di as txt ///
-		" ____  _                      __        __    _ _   " _n ///
-		"|  _ \| | ___  __ _ ___  ___  \ \      / /_ _(_) |_ " _n ///
-		"| |_) | |/ _ \/ _` / __|/ _ \  \ \ /\ / / _` | | __|" _n ///
-		"|  __/| |  __/ (_| \__ \  __/   \ V  V / (_| | | |_ " _n ///
-		"|_|   |_|\___|\__,_|___/\___|    \_/\_/ \__,_|_|\__|" _n 
 		
-		di as txt "{p}Required software packages are getting installed " ///
-		"in {browse `d'} directory. make sure you are " ///
-		"connected to internet. This may take a while..." _n(2)
+		di as txt "Installing MathJax in {browse `d'}" _n
 		
-		di as txt "Installing MathJax ... " _n
-		
-		cap qui copy "http://www.haghish.com/software/MathJax-master.zip" 		///
+		qui copy "http://www.haghish.com/software/MathJax-master.zip" 			///
 		"MathJax-master.zip", replace
 			
-		cap qui unzipfile MathJax-master, replace
+		qui unzipfile MathJax-master, replace
 		cap qui erase MathJax-master.zip
 			
 		// GETTING THE PATH TO mathjax
@@ -123,25 +124,13 @@
 		cap qui mkdir Weaver
 		qui cd Weaver
 		local d : pwd
-			
-		di _n
-		di as txt ///
-		" ____  _                      __        __    _ _   " _n ///
-		"|  _ \| | ___  __ _ ___  ___  \ \      / /_ _(_) |_ " _n ///
-		"| |_) | |/ _ \/ _` / __|/ _ \  \ \ /\ / / _` | | __|" _n ///
-		"|  __/| |  __/ (_| \__ \  __/   \ V  V / (_| | | |_ " _n ///
-		"|_|   |_|\___|\__,_|___/\___|    \_/\_/ \__,_|_|\__|" _n 
 		
-		di as txt "{p}Required software packages are getting installed " 		///
-		"in {browse `d'} directory. make sure you are " 						///
-		"connected to internet. This may take a while..." _n(2)
+		di as txt "Installing MathJax in {browse `d'}" _n
 		
-		di as txt "Installing MathJax ... " _n
-			
-		cap qui copy "http://www.haghish.com/software/MathJax-master.zip" 		///
+		qui copy "http://www.haghish.com/software/MathJax-master.zip" 			///
 		"MathJax-master.zip", replace
 			
-		cap qui unzipfile MathJax-master, replace
+		qui unzipfile MathJax-master, replace
 		cap qui erase MathJax-master.zip
 			
 		// GETTING THE PATH TO mathjax

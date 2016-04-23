@@ -20,7 +20,7 @@
 
 
 program define img
-version 11
+//version 11
 		
     syntax [anything], [Width(numlist max=1 >0 <=14000)] 						///
 	[Height(numlist max=1 int >0 <=14000)] [TITle(str)] [left|center] 			///
