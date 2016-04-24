@@ -21,7 +21,7 @@
 	==============================
 	
 	Weaver version 1.0.0  August,     2014
-	Weaver version 3.3.6  February,   2015
+	Weaver version 3.3.7  April, 2016
 */
 
 program define weavend
@@ -297,6 +297,7 @@ program define weavend
 	macro drop weavermath 							// for MathJax markup
 	macro drop mathjax								// MathJax path
 	macro drop weaverstyle 							// for div & codes command
+	macro drop weaversynoff							// for div & code command
 	macro drop savescheme
 	macro drop setpath
 	macro drop htmldoc

@@ -22,7 +22,7 @@
 	Weaver Versions
 	------------------------------
 	Weaver version 1.0  August, 	2014
-	Weaver version 3.3.6  February, 2016
+	Weaver version 3.3.7  April, 2016
 */
 
 program define weave
@@ -369,7 +369,7 @@ program define weave
 		if _rc != 0 {
 			local d : pwd
 			qui cd "`c(sysdir_plus)'w"
-			capture copy weaversetup.do weaversetup.ado
+			capture copy weavercontroller.ado weaversetup.ado
 			qui cd "`d'"
 		}
 		
@@ -805,6 +805,7 @@ program define weave
 		}
 		global savescheme `c(scheme)'				// default scheme
 		global weaverstyle "`style'"				// alters "div" & "codes"
+		global weaversynoff "`synoff'"				// alters "div" & "codes"
 		global weaverexecute `execute'				// runs the pdf files
 		if !missing("`noprint'") global nopdf 1 	// for img command
 		if missing("`landscape'") global format "normal"
@@ -1271,7 +1272,7 @@ program define weave
 			
 			weaverstyle, style("`style'") font("`font'")  `landscape' markup("`markup'")
 			
-			capture file open `canvas' using "$htmldoc" , write text append
+			qui file open `canvas' using "$htmldoc" , write text append
 			
 			
 			********************************************************************
@@ -1289,51 +1290,68 @@ program define weave
 				********************************************************************
 				* JQuary files
 				********************************************************************
-				file write `canvas' _n `"<script src="http://ajax.googleapis.com/"' ///
-				`"ajax/libs/jquery/1.11.3/jquery.min.js"></script> "' _n(2)   		///	
-				//"<script src=" `""http://ajax.googleapis.com/ajax/libs/jquery/"'	///
-				//`"1.8.3/jquery.js"></script> "' _n
-			
-			
-				if "`r(fn)'" ~= "" {
-					qui local sub "`c(pwd)'"
-					qui cd "`c(sysdir_plus)'/Weaver"
-					local d : pwd
-					local jqpath : di "`d'/jquery.min.js"
-					file write `canvas' _n `"<script src="`jqpath'"></script> "' _n(2) 
-					qui cd "`sub'"
-				}
-				if "`r(fn)'" == "" {
-					local install install
-					if `"`install'"'  == "install" {
-						qui local sub "`c(pwd)'"
-						qui cd "`c(sysdir_plus)'/Weaver"
-						cap qui copy "http://www.haghish.com/software/jquery.min.js" ///
-						"jquery.min.js", replace
-						local d : pwd
-						local jqpath : di "`d'/jquery.min.js"
-						file write `canvas' _n `"<script src="`jqpath'"></script> "' _n(2)   
-						qui cd "`sub'"
-					}
-					
-					if `"`install'"'  ~= "install" {
-						file write `canvas' _n `"<script src="http://ajax.googleapis.com/"' ///
-						`"ajax/libs/jquery/1.11.3/jquery.min.js"></script> "' _n(2)   			
-					}
-				}
+				file write `canvas' _n 											///
+				"<script src=" `""http://ajax.googleapis.com/ajax/libs/"'		///
+				`"jquery/1.8.3/jquery.js"></script> "' _n  						///
+				//`"<script src="http://ajax.googleapis.com/"' ///
+				//`"ajax/libs/jquery/1.11.3/jquery.min.js"></script> "' _n(2)   ///	
 				
-				********************************************************************
+				
+				
+				
+				//cap quietly findfile "jquery.min.js", path("`c(sysdir_plus)'Weaver")
+				//if "`r(fn)'" == "" {
+				//	local install install
+				//	if `"`install'"'  == "install" {
+				//		qui local sub "`c(pwd)'"
+				//		qui cd "`c(sysdir_plus)'/Weaver"
+				//		cap qui copy "http://www.haghish.com/software/jquery.min.js" ///
+				//		"jquery.min.js", replace  
+				//		qui cd "`sub'"
+				//		local jqinstalled 1
+				//	}
+					
+				//	if `"`install'"'  ~= "install" {
+				//		file write `canvas' _n `"<script src="http://ajax.googleapis.com/"' ///
+				//		`"ajax/libs/jquery/1.11.3/jquery.min.js"></script> "' _n(2)   			
+				//	}
+				//}
+				
+				//if "`r(fn)'" ~= "" | !missing("`jqinstalled'") {
+				//	qui local sub "`c(pwd)'"
+				//	qui cd "`c(sysdir_plus)'/Weaver"
+				//	local d : pwd
+				//	local jqpath : di "`d'/jquery.min.js"
+				//	file write `canvas' _n `"<script src="`jqpath'"></script> "' _n(2) 
+					
+					//tempname jq
+					//qui file open `jq' using "`jqpath'" , read
+					//file read `jq' line
+					
+					//file write `canvas' _n "<script>" _n
+					//while r(eof)==0 {
+					//	cap file write `canvas' `"`macval(line)'"' _n      
+					//	cap file read `jq' line
+					//}
+					//file write `canvas' _n "</script>" _n
+					//qui file close `jq'
+				//	qui cd "`sub'"
+				//}
+
+				
+				
+				****************************************************************
 				* JavaScript "Easing" and Smooth Zoom Codes
-				********************************************************************
+				****************************************************************
 				file close `canvas'
 				
 				weaverzoom
 				
-				capture file open `canvas' using "$htmldoc" , write text append
+				qui file open `canvas' using "$htmldoc" , write text append
 					
-				********************************************************************
+				****************************************************************
 				* JavaScript Syntax Highlighter for Stata
-				********************************************************************
+				****************************************************************
 				if "`synoff'" ~= "synoff" {
 					
 					file close `canvas'
@@ -1343,6 +1361,30 @@ program define weave
 				}
 			
 			}
+			
+			
+			********************************************************************
+			* ADD STATAX LATEX SYNTAXHIGHLIGHTER
+			********************************************************************		
+			if "`markup'" == "latex" & "`style'" != "empty" & missing("`synoff'") {						
+				capture quietly findfile statax.tex
+				if _rc == 0 {
+					tempname stx
+					qui local sub "`c(pwd)'"
+					qui cd "`c(sysdir_plus)'s"
+					local d : pwd
+					local statax : di "`d'/statax.tex"
+					qui cd "`sub'"				
+					file open `stx' using "`statax'" , read
+					file read `stx' line
+					while r(eof) == 0 {
+						qui file write `canvas' `"`macval(line)'"' _n      
+						qui file read `stx' line
+					}
+					qui file close `stx'
+				}
+			}
+			
 			
 			********************************************************************
 			* Adding MathJax.js script

@@ -48,7 +48,7 @@ f engine/weavermarkup.ado
 f engine/weavermath.ado
 f help/Weaver_Markup.sthlp
 f help/Weaver_mathematical_notation.sthlp
-F engine/weaversetup.do
+F engine/weavercontroller.ado
 f engine/weaverstyle.ado
 f engine/weaverversion.ado
 f engine/weaverwkhtmltopdf.ado
