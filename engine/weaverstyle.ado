@@ -1185,5 +1185,5 @@ program define weaverstyle
 	****************************************************************************
 	// is run from the Statax program
 			
-	file close "`canvas'"
+	file close `canvas'
 end
