@@ -2,7 +2,7 @@
 {* * KEEP THIS FILE MINIMAL, ESPECIALLY IF THE TEXT IS REPEATED IN OTHER HELP FILES}{...}
 {* *! version 3.2  06Oct2015}{...}
 {* *! version 3.3  January, 2016}{...}
-{right:Version 3.3.6 : March, 2016}
+{right:Version 3.3.7 : April, 2016}
 {* *! cmd:help Weaver}{...}
 
 {phang}
@@ -117,7 +117,7 @@ Open Weaver log file to begin the dynamic report
 {p 8 13 2}
 {opt weave} {cmd:using} {it:{help filename}} [{cmd:,} 
 {opt instal:l}
-{it:{opt nop:rint}}
+{it:{opt no:pdf}}
 {opt print:er(str)}
 {opt mark:up(name)}
 {opt math(name)}
@@ -230,7 +230,7 @@ PDF driver and {browse "http://www.mathjax.org/":MathJaX} automatically in
 the {bf:~/plus/Weaver} directory, if it is not already installed. For manual installation and more details, see below. 
 {p_end}
 
-{phang}{cmdab:nop:rint} runs Weaver without requiring any third-party software by 
+{phang}{cmdab:no:pdf} runs Weaver without requiring any third-party software by 
 omitting rendering a PDF and mathematical notations in the HTML log.{p_end}
 
 {phang}{cmdab:print:er:(}{it:string}{cmd:)} defines the file path to the 
@@ -388,7 +388,7 @@ wkhtmltopdf, pdfLaTeX, and MathJax third-party software. {p_end}
 
 {pstd}
 {marker wk}{...}
-As long as the {it:{opt nop:rint}} option is specified, Weaver does not require 
+As long as the {it:{opt no:pdf}} option is specified, Weaver does not require 
 any third-party software. However, for rendering PDF from the HTML or LaTeX log 
 files as well as rendering MathJax mathematic notations in the HTML log, Weaver 
 requires additional third-party software. 
@@ -396,8 +396,7 @@ The required software can be installed
 manually or automatically and both procedures are explained below.
 
 
-
-{dlgtab:Automatic Installation}
+{title:Automatic Installation}
 
 {p 4 4 2}
 For automatic installation of wkhtmltopdf and mathJax, use the {cmd:install} option 
@@ -433,7 +432,8 @@ and {browse "http://www.mathjax.org":mathjax} software. By choosing automatic
 installation, you also confirm that you are aware and agreed with the license agreements. 
 
 
-{dlgtab:Manual Installation}
+{title:Manual Installation}
+
 {p 4 4 2}
 {browse "http://wkhtmltopdf.org/downloads.html":{bf:wkhtmltopdf}} is a free open source (LGPL) 
 command line tools to render HTML into PDF. The application is available for Windows, Mac, 

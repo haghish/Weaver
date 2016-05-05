@@ -48,7 +48,7 @@
 
 program define txt
 version 11
-
+	
 	****************************************************************************
 	* Allowing Scalar interpretation
 	****************************************************************************
@@ -126,14 +126,14 @@ version 11
 				
 			if "$weavermath" == "mathascii" {
 				forvalues i = 1(1)20 {
-					local 0 : subinstr local 0 "###" `"<span class="math">##"'
-					local 0 : subinstr local 0 "###" "## </span>"
-					local 0 : subinstr local 0 "§§" `"<span class="math">##"'
-					local 0 : subinstr local 0 "§§" "## </span>"
-					local 0 : subinstr local 0 "\[" `"<span class="math">##"'
-					local 0 : subinstr local 0 "\]" "## </span>"
-					local 0 : subinstr local 0 "$$" `"<span class="math">##"'
-					local 0 : subinstr local 0 "$$" "## </span>"
+					local 0 : subinstr local 0 "###" `"<span class="math">\("'
+					local 0 : subinstr local 0 "###" "\) </span>"
+					local 0 : subinstr local 0 "§§" `"<span class="math">\("'
+					local 0 : subinstr local 0 "§§" "\) </span>"
+					local 0 : subinstr local 0 "\[" `"<span class="math">\("'
+					local 0 : subinstr local 0 "\]" "\) </span>"
+					local 0 : subinstr local 0 "$$" `"<span class="math">\("'
+					local 0 : subinstr local 0 "$$" "\) </span>"
 				}
 			}
 		}
@@ -165,6 +165,8 @@ version 11
 		tokenize `"`macval(0)'"'  , parse(`"""')
 		
 		while `"`1'"' ~= "" {
+			
+			*local 1 : subinstr local 1 "//(" "\(", all
 			
 			local 1 : subinstr local 1 "{c 96}" "`", all
 			local 1 : subinstr local 1 "{c 39}" "'", all

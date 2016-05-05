@@ -85,7 +85,9 @@ global pathPandoc      ""	//example: "C:\Pandoc\pandoc.exe"
 // -----------------------------------
 global markdocDefault  ""	//example: "markdown" or "html" or "latex" 
 
-
+// Default paper size
+// -----------------------------------
+global doc_paper       ""   //example: "a4"  or "letter" 
 	
 // -----------------------------------------------------------------------------
 // DO NOT EDIT THE REST OF THIS FILE                

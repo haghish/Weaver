@@ -37,10 +37,10 @@
 	
 	Weaver version 3.3.7  April, 2016
 */
-	
+
 program define div
 
-//version 11		//fails with newer Stata commands
+version 11		//fails with newer Stata commands
 	
 	
 	
@@ -106,7 +106,7 @@ program define div
 			if "`type'" == "smcl" cap qui log using `smcl', replace smcl
 		}	
 		else cap qui log using `text', replace text
-		`0'	
+		version `c(userversion)': `0'	
 		cap quietly log close	
 	
 		********************************************************************
@@ -138,27 +138,7 @@ program define div
 			if !missing("`lm'") translator set smcl2txt lmargin `lm'
 			translator set smcl2txt linesize `savelinesize'
 		}
-		
-		********************************************************************
-		* If log was ON 
-		*
-		* - append the content of the temporary log file to Stata log
-		********************************************************************	
-		if "`name'" != "" {
-			cap file open `canvas' using "`name'", write append 
-			if "`type'" == "smcl" cap file open `needle' using "`smcl'", read
-			if "`type'" == "text" cap file open `needle' using "`text'", read
-			cap file read `needle' line	
-				
-			while r(eof)==0 {
-				cap file write `canvas' `"`macval(line)'"' _n      
-				cap file read `needle' line
-			}
-		
-			cap file close `canvas' 
-			cap file close `needle'
-		}
-		
+
 		
 		********************************************************************
 		* Print the command to Weaver log 
@@ -247,3 +227,4 @@ program define div
 	}
 		
 end
+

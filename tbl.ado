@@ -54,7 +54,9 @@ program define tbl
 	[Height(numlist max=1 >0 <=14000)] [left|center] [TITle(str)]  				///
 	[Markup(str)]
 	
-
+	local 0 : subinstr local 0 "\(" "//(", all
+	local 0 : subinstr local 0 "\)" "//)", all
+	
 	****************************************************************************
 	* GENERAL SYNTAX PROCESSING
 	*
@@ -63,6 +65,7 @@ program define tbl
 	****************************************************************************
 	
 	capture weaversetup
+	
 	
 	if "`left'" == "left" & "`center'" == "center" {
 		di as err `"{p}The {bf:left} and "' 									///
@@ -126,6 +129,8 @@ program define tbl
 	while `"`1'"' ~= "" {
 		if `"`1'"' ~= "\" {
 			loc i `++i'	
+			local 1 : subinstr local 1 "//(" "\(", all
+			local 1 : subinstr local 1 "//)" "\)", all
 			local m`i' = `"`1'"'		
 		}
 		macro shift
@@ -837,7 +842,7 @@ program define tbl
 						}
 			
 						if substr("`1'",1,5) == "{col " {
-						
+				
 							local 1 : subinstr local 1 "{col " ""
 							
 							if "`markup'" == "markdown" {
@@ -1349,9 +1354,16 @@ program define tbl
 		}
 		
 		if "`markup'" == "markdown" & !missing("`error'") {
-			di as err `"{p}The {bf:{col #}} sign is not "' 						///
-			"supported in Markdown because Markdown does "						///
-			"not support hierarchical tables"
+			if missing("$weaver") {
+				di as err `"{p}The {bf:{col #}} sign is not "' 					///
+				"supported in Markdown because Markdown does "					///
+				"not support nested tables"
+			}	
+			if !missing("$weaver") {
+				di as txt `"{p}Warning: The {bf:{col #}} sign is not "' 		///
+				"supported in Markdown. The code printed in the Results Window"	///
+				" is not usable"
+			}
 		}
 		
 		

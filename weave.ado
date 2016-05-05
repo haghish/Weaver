@@ -29,7 +29,7 @@ program define weave
     version 11
     syntax [anything] [using/], 												///
 	[INSTALl]			/// install the required software
-	[NOPrint] 			/// avoid printing PDF
+	[NOpdf] 			/// avoid printing PDF
 	[PRINTer(str)] 		/// path to executable wkhtmltopdf or pdflatex
 	[MARKup(name)] 		/// document markup (HTML or LaTeX)
 	[math(name)] 		/// default math in HTML document
@@ -57,9 +57,10 @@ program define weave
 	****************************************************************************
 	* ESSENTIAL SYNTAX PROCESSING FOR CATEGORIZING THE COMMAND
 	****************************************************************************
-	
 	//Execute User-defined Weaver Paths
 	capture weaversetup						// because it may not exist YET
+	
+	if missing("`papersize'") & !missing("$doc_paper") local papersize "$doc_paper"
 	
 	if !missing("`quietly'") global noisyWeaver == "no"
 	else global noisyWeaver "yes"
@@ -103,7 +104,7 @@ program define weave
 		// Check syntax for options and weave commands
 		if !missing("`append'")          				 						///
 		 | !missing("`synoff'")    | !missing("`toc'")         					///
-		 | !missing("`landscape'") | !missing("`papersize'")   				 	///
+		 | !missing("`landscape'") ///| !missing("`papersize'")   				///
 		 | !missing("`margin'")    | !missing("`title'")       				 	///
 		 | !missing("`author'")    | !missing("`affiliation'") 				 	///
 		 | !missing("`address'")   | !missing("`date'")       	 			 	///
@@ -128,7 +129,7 @@ program define weave
 	// the weavermath global changes behavior of "txt" command
 	if missing("`math'") {
 		if "`markup'" == "latex" global weavermath mathlatex
-		if "`markup'" == "html" global weavermath mathascii 
+		if "`markup'" == "html"  global weavermath mathlatex  //mathascii 
 	}		
 	if "`math'" == "ascii" & "`markup'" == "latex" {
 		di as err "{bf:math(`math')} not supported in LaTeX"
@@ -162,8 +163,8 @@ program define weave
 		if !missing("$weaver") {			
 			di as txt _n                                            		 	///
 			"{hline}" _n                                        		 		///
-			`"      name:  {ul:{bf:{browse `"${weaverFullPath}"':$htmldoc}}} "' _n  		 	///
-			 "       log:  {bf:{bf:$weaverFullPath}}"  _n                     		 			///
+			`"      name:  {ul:{bf:{browse `"${weaverFullPath}"':$htmldoc}}} "' _n  ///
+			 "       log:  {bf:{bf:$weaverFullPath}}"  _n                     	///
 			 "  log type:  {bf:$weaverMarkup} "  _n       						///
 			 "    status:  {bf:on}" _n
 		}	
@@ -575,8 +576,7 @@ program define weave
 	****************************************************************************
 	if "`anything'" == "c"   | "`anything'" == "cl"   						 	///
 	| "`anything'" ==  "clo" | "`anything'" == "clos" 						 	///
-	| "`anything'" == "close"  {
-			
+	| "`anything'" == "close"  {	
 		if missing("$weaver") {
 			if missing("$weaversaver") {
 				di as err "no log file open"
@@ -695,7 +695,7 @@ program define weave
 			macro drop weaversaver
 			macro drop weaverFullPathPreserve		// full path preserved log
 			macro drop format						// for img command
-			macro drop nopdf						// for printing pdf document
+			macro drop nopdf2						// for printing pdf document
 			macro drop doc_toc
 			//macro drop gray_scale
 			macro drop doc_orientation
@@ -807,10 +807,10 @@ program define weave
 		global weaverstyle "`style'"				// alters "div" & "codes"
 		global weaversynoff "`synoff'"				// alters "div" & "codes"
 		global weaverexecute `execute'				// runs the pdf files
-		if !missing("`noprint'") global nopdf 1 	// for img command
+		if !missing("`nopdf'") global nopdf2 1 		// for img command
 		if missing("`landscape'") global format "normal"
 		if !missing("`landscape'") global format "landscape"	// for img command
-	
+
 		************************************************************************
 		* PRINTER, , PRINTER PATH, DOCUMENT MARGINS, PAPERSIZE
 		************************************************************************
@@ -1401,16 +1401,17 @@ program define weave
 						
 						global weavermath mathlatex
 						
-						file write `canvas' _n(3) 									///
-						_n(2) `"<script type="text/x-mathjax-config">"' _n 			///
-							_skip(4) "MathJax.Hub.Config({tex2jax: {inlineMath" 	///
-							": [['§','§'],['##','##'], ['\\(','\\)']]}});" _n 		///
-						"</script>" _n(2) 											///
-						"<script type="`"""'"text/javascript"`"""' 					/// 
+						file write `canvas' _n(3) 								///
+						_n(2) `"<script type="text/x-mathjax-config">"' _n 		///
+							_skip(4) "MathJax.Hub.Config({tex2jax: {inlineMath" ///
+							///": [['§','§'],['##','##'], ['\\(','\\)']]}});" _n 	///
+							": [['\\(','\\)']]}});" _n 				///
+						"</script>" _n(2) 										///
+						"<script type="`"""'"text/javascript"`"""' 				/// 
 							/// _skip(4) "src="`"""'"http://cdn.mathjax.org/
-							///mathjax/latest/MathJax.js" 							///
-							_skip(4) "src="`"""'"$mathjax" 							///
-							"?config=TeX-AMS-MML_HTMLorMML"`"""'">" _n 				///
+							///mathjax/latest/MathJax.js" 						///
+							_skip(4) "src="`"""'"$mathjax" 						///
+							"?config=TeX-AMS-MML_HTMLorMML"`"""'">" _n 			///
 						"</script>" _n(2)	
 					}
 				}	
@@ -1432,7 +1433,7 @@ program define weave
 						"<script type="`"""'"text/x-mathjax-config"`"""'">" _n	///
 						"MathJax.Hub.Config({asciimath2jax: {"	_n				///
 						/// "delimiters: [['§','§'],['##','##'],['$','$'], ['`""','`""']]}});</script>" _n(2)	///
-						_skip(4) "delimiters: [['§','§'],['##','##'],['\\(','\\)']]}});"	_n	///
+						_skip(4) "delimiters: [['\\(','\\)']]}});"	_n	///
 						"</script>" _n(2)	///
 						"<script type="`"""'"text/javascript"`"""' 				///
 						_skip(4) "src="`"""'"$mathjax?config=AM_HTMLorMML"`"""' ///

@@ -21,26 +21,29 @@ the {cmdab:img} command behave differently based on which of the packages is in 
 {marker syntax}{...}
 {title:Syntax}
 
-    Import graphical files in the HTML log
+    Import graphical files in the dynamic document
 	
-	{cmdab:img} {it:{help filename}} [{cmd:,} {opt tit:le(str)} {opt w:idth(int)} {opt h:eight(int)} {opt left} {opt center}  ]
+	{cmdab:img} [using {it:{help filename}}] [{cmd:,} {opt tit:le(str)} {opt w:idth(int)} {opt h:eight(int)} {opt left} {opt center}  ]
 
+    Automatically include the {it:current graph} from Stata in the dynamic document
+	
+	{cmdab:img} [{cmd:,} {opt tit:le(str)} {opt w:idth(int)} {opt h:eight(int)} {opt left} {opt center}  ]
+	
 
 {marker description}{...}
 {title:Description}
 
-{phang}
+{pstd}
 The {cmdab:img} command imports images and graphs into the dynamic document. 
 Any graphical file that is compatible with a web-browser can be inserted in the 
-html log.  
-This command belongs to {help Weaver} package but it also supports the 
+html log. This command belongs to {help Weaver} package but it also supports the 
 {help MarkDoc} package. The syntax for both packages is the same but
 the {cmdab:img} command behave differently based on which of the packages is in use. 
 If Weaver html log and smcl log are open at the same time, the command 
 only functions for Weaver and not for MarkDoc. In contrast, when Weaver html log is
 not open and scml log is on, it will function for MarkDoc package. 
 
-{p 8 8 2}
+{p 4 4 2}
 {bf:Note:} This command 
 only support MarkDoc if the document is exported in {bf:html} or {bf:pdf} formats. 
 
@@ -74,8 +77,10 @@ because it is lossless format and the same file can be used for publication.
 {phang2}{cmd:. histogram price}{p_end}
 {phang2}{cmd:. graph export price.png, replace}{p_end}
 
-{phang2}{cmd:. img price.png}{p_end}
-{phang2}{cmd:. img price.png, title(Figure 1. This is the histogram of the Price variable)}{p_end}
-{phang2}{cmd:. img price.png, w(300) h(200) center}{p_end} 
+{phang2}{cmd:. img using price.png}{p_end}
+{phang2}{cmd:. img using price.png, title(Figure 1. This is the histogram of the Price variable)}{p_end}
+{phang2}{cmd:. img using price.png, w(300) h(200) center}{p_end} 
+{pstd}Alternatively, the image can be obtained from Stata automatically
 
-
+{phang2}{cmd:. histogram mpg}{p_end}
+{phang2}{cmd:. img, title("Histogram of the MPG variable")}{p_end}

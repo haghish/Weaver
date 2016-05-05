@@ -107,7 +107,7 @@ program define weavend
 	
 	//PRINTING THE HTML LOG
 	//---------------------
-	if missing("$nopdf") & "$weaverMarkup" == "html" {
+	if missing("$nopdf2") & "$weaverMarkup" == "html" {
 	
 		// Microsoft Windows
 		if "`c(os)'"=="Windows" {	
@@ -155,7 +155,7 @@ program define weavend
 	
 	//PRINTING THE LATEX LOG
 	//----------------------
-	if missing("$nopdf") & "$weaverMarkup" == "latex" {
+	if missing("$nopdf2") & "$weaverMarkup" == "latex" {
 	
 		if !missing("$setpath") {
 			*capture shell "$setpath" "$htmldoc" "$pdfdoc" 
@@ -172,7 +172,7 @@ program define weavend
 	********************************************************************		
 	
 	// SEARCH FOR THE PDF
-	if missing("$nopdf"){ 
+	if missing("$nopdf2"){ 
 	
 		cap quietly findfile "$pdfdoc"
 		if "`r(fn)'" != "" {
@@ -221,7 +221,7 @@ program define weavend
 		}
 	}		
 	
-	if !missing("$nopdf"){
+	if !missing("$nopdf2"){
 		
 		/*
 		local sep "`r(fn)'"
@@ -284,7 +284,7 @@ program define weavend
 	macro drop weaverFullPathPDF					// full path to pdf
 	macro drop weaverFullPathPreserve				// full path preserved log
 	macro drop format								// for img command
-	macro drop nopdf								// for printing pdf document
+	macro drop nopdf2								// for printing pdf document
 	macro drop doc_toc
 	//macro drop gray_scale
 	macro drop doc_orientation

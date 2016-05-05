@@ -20,9 +20,9 @@
 
 
 program define img
-//version 11
+version 11
 		
-    syntax [anything], [Width(numlist max=1 >0 <=14000)] 						///
+    syntax [using/], [Width(numlist max=1 >0 <=14000)] 							///
 	[Height(numlist max=1 int >0 <=14000)] [TITle(str)] [left|center] 			///
 	[Markup(str)]
 			    
@@ -31,15 +31,15 @@ program define img
 	* GENERAL SYNTAX PROCESSING
 	*
 	* - load global values
-	* - make sure "`anything'" is a filename
-	* - if `anything' is missing, automaticaly export the image and define it
+	* - make sure "`using'" is a filename
+	* - if `using' is missing, automaticaly export the image and define it
 	* - check that only one of the align options is selected
 	* - defining the default image alignment
 	* - check the markup option (FOR MARKDOC ONLY)
 	************************************************************************
 	
-	if !missing("`anything'") {
-		confirm file "`anything'"
+	if !missing("`using'") {
+		confirm file "`using'"
 	}
 	
 	else {
@@ -106,8 +106,8 @@ program define img
 			qui graph export "`exp'", replace width(`w')
 		}
 		
-		// define anything for the rest of the program
-		local anything = "Weaver-figure/figure_$currentFigure" + ".png"
+		// define using for the rest of the program
+		local using = "Weaver-figure/figure_$currentFigure" + ".png"
 		
 	}
 	
@@ -192,7 +192,7 @@ program define img
 			}
 			*/
 			
-			file write `canvas' `"<img rel="zoom"  src="`anything'" "' 			///
+			file write `canvas' `"<img rel="zoom"  src="`using'" "' 			///
 				`"`centerClass' width="`width'" height="`height'" >"'
 			
 			if "`title'" ~= "" {
@@ -222,11 +222,11 @@ program define img
 			"raggedright,singlelinecheck=false}" _n
 
 			if "`miss'" == "w" file write `canvas' 								///
-			"    \includegraphics[height=`height'px]{`anything'}" _n
+			"    \includegraphics[height=`height'px]{`using'}" _n
 			else if "`miss'" == "h" file write `canvas' 						///
-			"    \includegraphics[width=`width'px]{`anything'}" _n
+			"    \includegraphics[width=`width'px]{`using'}" _n
 			else  file write `canvas' "    \includegraphics[width=`width'px, "	///
-			"height=`height'px]{`anything'}" _n
+			"height=`height'px]{`using'}" _n
 			
 			if "`title'" ~= "" file write `canvas' "    \caption{`title'}" _n
 			
@@ -265,7 +265,7 @@ program define img
 			// Markdown syntax 
 			// -----------------------------------------------------------------
 			if "`markup'" == "markdown" {
-				noisily display as text _n ">![`title'](`anything')" _n 
+				noisily display as text _n ">![`title'](`using')" _n 
 			}
 			
 			// -----------------------------------------------------------------
@@ -276,7 +276,7 @@ program define img
 					noisily display as text 									///
 					`"><p style="text-align:left; margin-bottom:0;">`title'</p>"' _n
 				}
-				noisily display as text `"><img src="`anything'" "' 			///
+				noisily display as text `"><img src="`using'" "' 			///
 				`"width="`width'" height="`height'" >"' _newline 
 			}
 			
@@ -285,7 +285,7 @@ program define img
 					noisily display as text 									///
 					`"><p style="text-align:center; margin-bottom:0;">`title'</p>"' _n
 				}
-				noisily display `"><img src="`anything'" "' 					///
+				noisily display `"><img src="`using'" "' 					///
 				`"class="center"   width="`width'" height="`height'" >"' _n
 			}
 			
@@ -316,13 +316,13 @@ program define img
 				"raggedright,singlelinecheck=false}" 
 
 				if "`miss'" == "w" noisily display 								///
-				">\includegraphics[height=`height'px]{`anything'}" 
+				">\includegraphics[height=`height'px]{`using'}" 
 				
 				else if "`miss'" == "h" noisily display							///
-				">\includegraphics[width=`width'px]{`anything'}" 
+				">\includegraphics[width=`width'px]{`using'}" 
 				
 				else  noisily display ">\includegraphics[width=`width'px, "	///
-				"height=`height'px]{`anything'}" 
+				"height=`height'px]{`using'}" 
 			
 				if "`title'" ~= "" noisily display ">\caption{`title'}" 
 			

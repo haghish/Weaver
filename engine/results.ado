@@ -70,7 +70,7 @@ program define results
 		if "`type'" == "smcl" cap qui log using `smcl', replace smcl
 	}	
 	else cap qui log using `text', replace text
-	`0'									
+	version `c(userversion)': `0'									
 	cap quietly log close
 			
 	********************************************************************

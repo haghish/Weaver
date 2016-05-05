@@ -26,7 +26,7 @@
 
 		
 program codes
-//version 11	
+version 11	
 	
 	****************************************************************************
 	* the "cod" command
@@ -35,7 +35,7 @@ program codes
 	* - append the command to Weaver log
 	****************************************************************************
 	
-	`0'				
+	version `c(userversion)': `0'				
 				
     tempname canvas
 	cap file open `canvas' using `"$weaverFullPath"', write text append  
