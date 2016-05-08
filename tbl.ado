@@ -1362,7 +1362,7 @@ program define tbl
 			if !missing("$weaver") {
 				di as txt `"{p}Warning: The {bf:{col #}} sign is not "' 		///
 				"supported in Markdown. The code printed in the Results Window"	///
-				" is not usable"
+				" is not usable for {help MarkDoc} package. "     ///
 			}
 		}
 		

@@ -89,7 +89,7 @@ are explained in two separate sections.
 {opt weave} {cmd:using} {it:{help filename}} [{cmd:,} {opt options}]{break} 
 {opt weave} {cmdab:mer:ge} {cmd:using} {it:{help filename}} {break} 
 {opt weave} {opt pdf} [{cmd:,} {cmd:replace}] {break} 
-{opt weave} {cmd:query} {break} 
+{opt weave} {cmdab:q:uery} {break} 
 {opt weave} {c -(}{opt of:f}{c |}{opt on}{c )-} {break}
 {opt weave} {c -(}{opt preserve}{c |}{opt restore}{c )-} {break}
 {opt weave} {opt c:lose} {break} 
@@ -108,7 +108,7 @@ are explained in two separate sections.
 Report status of Weaver log file
 
 {p 8 13 2}
-{opt weave} {cmd:query}
+{opt weave} {cmdab:q:uery}
 
 
 {phang}

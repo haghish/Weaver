@@ -30,6 +30,7 @@ program define weave
     syntax [anything] [using/], 												///
 	[INSTALl]			/// install the required software
 	[NOpdf] 			/// avoid printing PDF
+	[pdf]				/// avoif error due to "nopdf" option. 
 	[PRINTer(str)] 		/// path to executable wkhtmltopdf or pdflatex
 	[MARKup(name)] 		/// document markup (HTML or LaTeX)
 	[math(name)] 		/// default math in HTML document
@@ -77,7 +78,9 @@ program define weave
 		if "`anything'" ~= "c" & "`anything'" ~= "cl" & "`anything'" ~= "clo" &	///
 		   "`anything'" ~= "clos" & "`anything'" ~= "close" & 			 		///
 		   "`anything'" ~= "on" & "`anything'" ~= "of" & "`anything'" ~= "off"  ///
-		   & "`anything'" ~= "query" & "`anything'" ~= "pdf" &					///
+		   & "`anything'" ~= "query" & "`anything'" ~= "quer" &					///
+		   & "`anything'" ~= "que" & "`anything'" ~= "qu" &					    ///
+		   & "`anything'" ~= "q" & "`anything'" ~= "pdf" &					///
 		   "`anything'" ~= "mer" & "`anything'" ~= "merg" & 					///
 		   "`anything'" ~= "merge" & "`anything'" ~= "preserve" & 				///
 		   "`anything'" ~= "restore" & "`anything'" ~= "setup" {
@@ -117,7 +120,8 @@ program define weave
 		}
 		
 		if "`anything'" == "off"   | "`anything'" == "on"      			 	 	///
-		 | "`anything'" == "query" {
+		 | "`anything'" == "query" | "`anything'" == "q" | "`anything'" == "qu" ///
+		 | "`anything'" == "que"   | "`anything'" == "quer" {
 			if !missing("`replace'") {
 				di as err "invalid syntax"
 				exit 198
@@ -143,7 +147,8 @@ program define weave
 	*
 	* check if the log is open and if it is "off" (saved in weaversaver global)
 	****************************************************************************
-	if "`anything'" == "query" {	
+	if "`anything'" == "query" | "`anything'" == "q" | "`anything'" == "qu"     ///
+		 | "`anything'" == "que"   | "`anything'" == "quer" {	
 		
 		// If the log file is closed or off
 		if missing("$weaver") {				
