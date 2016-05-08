@@ -740,6 +740,21 @@ program define weave
 			exit 604
 		}
 		
+
+		// DEFINE THE MARKUP LANGUAGE
+		// ==============================
+		if "`markup'" == "HTML" | "`markup'" == "html" {
+			global weaverMarkup html
+		}
+		else if "`markup'" == "LATEX" | "`markup'" == "LaTeX" | "`markup'" == 	///
+		"tex" | "`markup'" == "latex" {
+			global weaverMarkup latex
+		}
+		else if !missing("`markup'") {
+			di as err "invalid syntax"
+			exit 198
+		}
+		
 		// DEFINING THE FILE NAMES
 		// ==============================
 		if missing("`markup'") {
@@ -791,7 +806,7 @@ program define weave
 													
 		// WEAVER SAVINGS
 		// ==============================
-		qui global location "`c(pwd)'" 				// current working directory
+		qui global location "`c(pwd)'" 				// current working directory		
 		if "$weaverMarkup" == "html" {
 			global printer wkhtmltopdf				// Define the PDF printer
 		}	
@@ -1005,20 +1020,7 @@ program define weave
 		}
 
 		
-		************************************************************************
-		* DEFINE THE MARKUP LANGUAGE
-		************************************************************************
-		if "`markup'" == "HTML" | "`markup'" == "html" {
-			global weaverMarkup html
-		}
-		else if "`markup'" == "LATEX" | "`markup'" == "LaTeX" | "`markup'" == 	///
-		"tex" | "`markup'" == "latex" {
-			global weaverMarkup latex
-		}
-		else if !missing("`markup'") {
-			di as err "invalid syntax"
-			exit 198
-		}
+		
 		
 		************************************************************************
 		* CHECKING THE REQUIRED SOFTWARE
