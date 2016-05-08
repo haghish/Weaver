@@ -143,6 +143,7 @@ program define tbl
 	* - print the table's title
 	* - interpret scalars
 	****************************************************************************
+	/**
 	if "$weaver" ~= ""  {
 			
 		html
@@ -697,6 +698,7 @@ program define tbl
 	}
 	
 	
+	**/
 	****************************************************************************
 	* MarkDoc PACKAGES
 	* ----------------
@@ -1341,6 +1343,7 @@ program define tbl
 				
 			}
 		}
+		
 		if "`markup'" == "markdown" di "> "
 		if "`markup'" == "html" {
 			di as txt `"> </tbody>"'
@@ -1359,17 +1362,20 @@ program define tbl
 				"supported in Markdown because Markdown does "					///
 				"not support nested tables"
 			}	
-			if !missing("$weaver") {
+			if !missing("$weaver") & !missing("$noisyWeaver") {
 				di as txt `"{p}Warning: The {bf:{col #}} sign is not "' 		///
 				"supported in Markdown. The code printed in the Results Window"	///
-				" is not usable for {help MarkDoc} package. "     ///
+				" is not usable for {help MarkDoc} package. However, if you "   ///
+				"are using {help Weaver}, ignore this warning"
 			}
 		}
-		
-		
+
 	}		
 								
-	// Check the Status of the log files for Weaver and MarkDoc					
+	// Check the Status of the log files for Weaver and MarkDoc	
+	
+	
+	
 	qui log query
 	if "`r(status)'" ~= "on" & "$weaver" == "" {
 		di as txt _n(2) "{hline}"

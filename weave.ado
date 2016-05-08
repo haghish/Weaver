@@ -49,7 +49,7 @@ program define weave
 	[SUMmary(str)] 		/// document abstract
 	[Date] 				/// document creation date 
 	[SYNoff]			/// turn syntax highlighter off in HTML document
-	[QUIetly]			/// quiet performance; no print on results window
+	[NOIsily]			/// noisy performance; print on results window
 	//[css(str)] 		/// attach CSS document in HTML document
 	//[NOScheme]
 	//[GRAYscale]
@@ -63,8 +63,10 @@ program define weave
 	
 	if missing("`papersize'") & !missing("$doc_paper") local papersize "$doc_paper"
 	
-	if !missing("`quietly'") global noisyWeaver == "no"
-	else global noisyWeaver "yes"
+	if !missing("`noisily'") | "$noisyWeaver" == "yes" {
+		global noisyWeaver "yes"
+	}	
+	else global noisyWeaver "no"
 	
 	if missing("`paper'") local paper a4	//define default paper
 	
@@ -624,8 +626,7 @@ program define weave
 			else {
 				
 				//If the file is in LaTeX, first end it
-				
-				weavend 							// CALL THE WEAVEND PROGRAM
+				noisily weavend 						// CALL THE WEAVEND PROGRAM
 			} 
 		}
 	}

@@ -26,7 +26,8 @@
 
 program define weavend
     version 11
-	//syntax , [replace]
+	if "$noisyWeaver" == "no" local qui quietly
+	//syntax , /*[replace]*/ 
 		
 	// checking that log exists
     if missing("$weaver") {
@@ -112,8 +113,8 @@ program define weavend
 		// Microsoft Windows
 		if "`c(os)'"=="Windows" {	
 			if "$printer" == "wkhtmltopdf" {
-				shell "$setpath" 												///
-				$doc_paper $doc_orientation /*$gray_scale*/  						///
+				`qui' shell "$setpath" 											///
+				$doc_paper $doc_orientation /*$gray_scale*/  					///
 				$margin_top $margin_right $margin_left $margin_bottom  			///
 				$footer_font --footer-center [page] --footer-font-size 10 		///
 				--no-stop-slow-scripts --javascript-delay 2000 					///
@@ -126,8 +127,8 @@ program define weavend
 		// Macintosh
 		if "`c(os)'" == "MacOSX" {
 			if "$printer" == "wkhtmltopdf" {
-				shell "$setpath" 												///
-				$doc_paper $doc_orientation /*$gray_scale*/  						///
+				`qui' shell "$setpath" 											///
+				$doc_paper $doc_orientation /*$gray_scale*/  					///
 				$margin_top $margin_right $margin_left $margin_bottom  			///
 				$footer_font --footer-center [page] --footer-font-size 10 		///
 				--no-stop-slow-scripts --javascript-delay 2000 					///
@@ -140,8 +141,8 @@ program define weavend
 		// UNIX
 		if "`c(os)'"=="Unix" {	
 			if "$printer" == "wkhtmltopdf" {
-				shell "$setpath" 												///
-				$doc_paper $doc_orientation /*$gray_scale*/  						///
+				`qui' shell "$setpath" 											///
+				$doc_paper $doc_orientation /*$gray_scale*/  					///
 				$margin_top $margin_right $margin_left $margin_bottom  			///
 				$footer_font --footer-center [page] --footer-font-size 10 		///
 				--no-stop-slow-scripts --javascript-delay 2000 					///

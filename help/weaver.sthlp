@@ -2,7 +2,7 @@
 {* * KEEP THIS FILE MINIMAL, ESPECIALLY IF THE TEXT IS REPEATED IN OTHER HELP FILES}{...}
 {* *! version 3.2  06Oct2015}{...}
 {* *! version 3.3  January, 2016}{...}
-{right:Version 3.3.7 : April, 2016}
+{right:Version 3.3.7 : May, 2016}
 {* *! cmd:help Weaver}{...}
 
 {phang}
@@ -137,7 +137,7 @@ Open Weaver log file to begin the dynamic report
 {opt sum:mary(str)}
 {opt d:ate}
 {opt syn:off} 
-{opt qui:etly}
+{opt noi:sily}
 ] 
 
 
@@ -304,9 +304,9 @@ from HTML fonts. The list of available LaTeX fonts is {bf:cmr}, {bf:lmr},
 
 {phang}{cmdab:syn:off} turns off {help Statax} JavaScript syntax highlighter engine.{p_end}
 
-{phang}{cmdab:qui:etly} quietly performs Weaver commands (not recommended); if specified, Weaver 
-commands do not print any output on the results windows and thus, {help MarkDoc} 
-package cannot be used with Weaver simultaniously. {p_end}
+{phang}{cmdab:noi:sily} noisily performs Weaver commands ; if specified, Weaver 
+commands print outputs on the results windows and thus, {help MarkDoc} 
+package can be used with Weaver simultaniously. {p_end}
 
 
 
