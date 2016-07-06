@@ -265,7 +265,7 @@ version 11
 			// Markdown syntax 
 			// -----------------------------------------------------------------
 			if "`markup'" == "markdown" {
-				noisily display as text _n ">![`title'](`using')" _n 
+				noisily display as txt _n ">![`title'](`using')" _n 
 			}
 			
 			// -----------------------------------------------------------------
@@ -273,16 +273,16 @@ version 11
 			// -----------------------------------------------------------------
 			if "`left'" == "left" & "`markup'" == "html" {
 				if "`title'" ~= "" {
-					noisily display as text 									///
+					noisily display as txt 									///
 					`"><p style="text-align:left; margin-bottom:0;">`title'</p>"' _n
 				}
-				noisily display as text `"><img src="`using'" "' 			///
+				noisily display as txt `"><img src="`using'" "' 			///
 				`"width="`width'" height="`height'" >"' _newline 
 			}
 			
 			if "`center'" == "center" & "`markup'" == "html" {
 				if "`title'" ~= "" {
-					noisily display as text 									///
+					noisily display as txt 									///
 					`"><p style="text-align:center; margin-bottom:0;">`title'</p>"' _n
 				}
 				noisily display `"><img src="`using'" "' 					///

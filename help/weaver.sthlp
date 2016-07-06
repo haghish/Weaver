@@ -8,7 +8,7 @@
 {phang}
 {bf:weaver} {hline 2} A general purpose package for creating dynamic report in HTML, LaTeX, and 
 PDF. Weaver includes a {help statax:built-in JavaScript syntax highlighter} for Stata code, an engine for 
-{help Weaver_mathematical_notation:rendering ASCII and LaTeX mathematical notations}, 
+{help Weaver_mathematical_notation:rendering LaTeX mathematical notations in LaTeX and HTML log files}, 
 a number of specialized commands for creating publication-ready {help tbl:dynamic table}, 
 {help img:inserting and resizing a figure}, and writing {help txt:dynamic text}. 
 Moreover, Weaver also includes a built-in JavaScript-based language called 
@@ -61,7 +61,7 @@ for a complete tutorial on Weaver as well as downloading template do-files.
  
 {p 8 8 2}
 {help weaver_markup:{c 149} Simplified Weaver Markup Language}{break} 
-{help Weaver_mathematical_notation:{c 149} Rendering ASCII and LaTeX mathematical notations in HTML log & PDF}{break} 
+{help Weaver_mathematical_notation:{c 149} Rendering LaTeX mathematical notations in HTML and LaTeX log files}{break} 
 {help statax:{c 149} Statax JavaScript Syntax Highlighter}{break}
 {help div:{c 149} {bf:div} command for ncluding Stata code and output in the document}{break} 
 {help img:{c 149} {bf:img}  command for inserting a figure or image in the document}{break} 
@@ -120,7 +120,6 @@ Open Weaver log file to begin the dynamic report
 {it:{opt no:pdf}}
 {opt print:er(str)}
 {opt mark:up(name)}
-{opt math(name)}
 {cmd:append}
 {cmd:replace} 
 {opt paper:size(name)}
@@ -240,10 +239,6 @@ the {bf:~/plus/Weaver} directory (see {help weaver##trouble:Software troubleshoo
 
 {phang}{cmdab:mark:up:(}{it:name}{cmd:)} define the log format which can be 
 {opt html} or {opt latex}.{p_end}
-
-{phang}{cmdab::math(}{it:name}{cmd:)} specify the name of the markup language 
-used for writing mathematical notation in the HTML log, which can be {bf:ascii} 
-or {bf:latex}. {help Weaver_mathematical_notation:read more...} {p_end}
 
 {phang}{opt replace} replaces the log and pdf files if already exist. {p_end}
 
@@ -445,7 +440,7 @@ file using the {cmd:weave setup} command. Visit
 
 {p 4 4 2}
 Weaver also requires {browse "http://www.mathjax.org":mathjax.org} JavaScript 
-which renders LaTex and ASCII mathematical notations in HTML log. This software 
+which renders LaTex mathematical notations in HTML log. This software 
 is not required in LaTeX log files. On the main page of mathjax.org, 
 you can download {bf:MathJax-master.zip} file and unzip it inside Weaver directory, 
 in {bf:~/ado/plus/Weaver/} on your machine. Alternatively, you can define the 

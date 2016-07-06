@@ -33,7 +33,6 @@ program define weave
 	[pdf]				/// avoif error due to "nopdf" option. 
 	[PRINTer(str)] 		/// path to executable wkhtmltopdf or pdflatex
 	[MARKup(name)] 		/// document markup (HTML or LaTeX)
-	[math(name)] 		/// default math in HTML document
 	[append|replace]	/// append or replace the dynamic report
 	[PAPERsize(name)] 	/// define the PDF paper size
 	[Margin(numlist max=4 min=4 int >=3 <=50)] /// top right bottom left margins
@@ -50,6 +49,7 @@ program define weave
 	[Date] 				/// document creation date 
 	[SYNoff]			/// turn syntax highlighter off in HTML document
 	[NOIsily]			/// noisy performance; print on results window
+	//[math(name)] 		/// default math in HTML document
 	//[css(str)] 		/// attach CSS document in HTML document
 	//[NOScheme]
 	//[GRAYscale]
@@ -59,6 +59,7 @@ program define weave
 	* ESSENTIAL SYNTAX PROCESSING FOR CATEGORIZING THE COMMAND
 	****************************************************************************
 	//Execute User-defined Weaver Paths
+	capture prog drop weaversetup			// because it may have just changed
 	capture weaversetup						// because it may not exist YET
 	
 	if missing("`papersize'") & !missing("$doc_paper") local papersize "$doc_paper"
@@ -116,7 +117,7 @@ program define weave
 		 | !missing("`summary'")   | !missing("`style'")       				 	///
 		 | !missing("`markup'")	   | !missing("`font'")        				 	///
 		 | !missing("`install'")   | !missing("`printer'")     				 	///
-		 | !missing("`math'")      | !missing("`template'") {
+		 | !missing("`template'") {
 			di as err "invalid syntax"
 			exit 198	 
 		}
@@ -133,16 +134,9 @@ program define weave
 	
 	// Setting up the Mathematics default
 	// the weavermath global changes behavior of "txt" command
-	if missing("`math'") {
-		if "`markup'" == "latex" global weavermath mathlatex
-		if "`markup'" == "html"  global weavermath mathlatex  //mathascii 
-	}		
-	if "`math'" == "ascii" & "`markup'" == "latex" {
-		di as err "{bf:math(`math')} not supported in LaTeX"
-		exit 198
-	}
-	if "`math'" == "latex" global weavermath mathlatex
-	if "`math'" == "ascii" global weavermath mathascii
+	
+	global weavermath mathlatex
+
 		
 	****************************************************************************
 	* weave quary : check the log status
@@ -216,7 +210,7 @@ program define weave
 			 }
 			if "$weaverMarkup" == "latex" {
 				file write `canvas' 											///
-				`"%   name      : {ul:{bf:{browse `"${weaverFullPath}"':$htmldoc}}}"' _n 	///
+				`"%   name      : $htmldoc"' _n 	///
 				`"%   log       : $weaverFullPath "' _n 						///
 				 "%   software  : Weaver package $weaverversion on Stata" 	 	///
 				 "`c(stata_version)'" _n 										///
@@ -273,13 +267,13 @@ program define weave
 				
 				if "$weaverMarkup" == "latex" {
 					file write `canvas' 										///
-					`"$   name      : ${htmldoc}"' _n 						///
-					`"$   log       : $weaverFullPath"' _n 						 	///
-					`"$   software  : Weaver package $weaverversion on Stata"' ///
+					`"%   name      : ${htmldoc}"' _n 						///
+					`"%   log       : $weaverFullPath"' _n 						 	///
+					`"%   software  : Weaver package $weaverversion on Stata"' ///
 					 "`c(stata_version)'" _n 								///
-					`"$   machine   : `c(machine_type)' version `c(osdtl)'"'_n ///
-					`"$   resumed on: `c(current_date)', `c(current_time)'"'_n ///
-					`"$   username  : `c(username)'"' _n 
+					`"%   machine   : `c(machine_type)' version `c(osdtl)'"'_n ///
+					`"%   resumed on: `c(current_date)', `c(current_time)'"'_n ///
+					`"%   username  : `c(username)'"' _n 
 				}
 				
 				global weaver $weaversaver
@@ -777,10 +771,6 @@ program define weave
 				global weaverMarkup html
 				local markup html
 			}
-			if "`suffix'" == ".tex" & "`math'" == "ascii" {
-				di as err "ascii math is not supported with LaTeX"
-				exit 198
-			}
 		}
 		
 		
@@ -923,7 +913,6 @@ program define weave
 		// check the options that can be used with append 
 		if !missing("`append'") {
 			if !missing("`replace'") local a1 "{bf:replace}" 
-			/// if !missing("`math'") local a2 "{bf:math()}"
 			if !missing("`synoff'") local a3 "{bf:synoff}"
 			if !missing("`font'") local a4 "{bf:font()}"
 			if !missing("`title'") local a5 "{bf:title()}"
@@ -1057,12 +1046,6 @@ program define weave
 			global weaverAppend 1						// for IMG command
 			
 			if "`markup'" == "latex" | "$weaverMarkup" == "latex" {
-				
-				//check the math
-				if "$weavermath" == "mathascii" {
-					di as err "{p}ascii math is not supported in LaTeX" 
-					exit 198
-				}
 				
 				tempfile tmp
 				tempname testcanvas needle
@@ -1402,91 +1385,38 @@ program define weave
 			* Developed by https://www.mathjax.org/
 			********************************************************************
 			if !missing("$mathjax") { 
-						
-				if "`math'" == "latex" {
-					
-					if "`markup'" == "html" {
-						
-						global weavermath mathlatex
-						
-						file write `canvas' _n(3) 								///
-						_n(2) `"<script type="text/x-mathjax-config">"' _n 		///
-							_skip(4) "MathJax.Hub.Config({tex2jax: {inlineMath" ///
-							///": [['§','§'],['##','##'], ['\\(','\\)']]}});" _n 	///
-							": [['\\(','\\)']]}});" _n 				///
-						"</script>" _n(2) 										///
-						"<script type="`"""'"text/javascript"`"""' 				/// 
-							/// _skip(4) "src="`"""'"http://cdn.mathjax.org/
-							///mathjax/latest/MathJax.js" 						///
-							_skip(4) "src="`"""'"$mathjax" 						///
-							"?config=TeX-AMS-MML_HTMLorMML"`"""'">" _n 			///
-						"</script>" _n(2)	
-					}
-				}	
-						
+				
 				if "`markup'" == "html" {
-					if missing("`math'") | "`math'" == "ascii" {
-							
-						//This global changes behavior of "txt" command
-						global weavermath mathascii
-						
-						/*
-						file write `canvas' _n(2) 								///
-						"<script type="`"""'"text/javascript"`"""' 				///
-							_skip(4) "src="`"""'"$mathjax"`"""' 				///
-						"</script>" _n(2)
-						*/
-						
-						file write `canvas' _n(2) 								///
-						"<script type="`"""'"text/x-mathjax-config"`"""'">" _n	///
-						"MathJax.Hub.Config({asciimath2jax: {"	_n				///
-						/// "delimiters: [['§','§'],['##','##'],['$','$'], ['`""','`""']]}});</script>" _n(2)	///
-						_skip(4) "delimiters: [['\\(','\\)']]}});"	_n	///
-						"</script>" _n(2)	///
-						"<script type="`"""'"text/javascript"`"""' 				///
-						_skip(4) "src="`"""'"$mathjax?config=AM_HTMLorMML"`"""' ///
-							">" _n 												///
-						"</script>" _n(2)
-					}
-				}
+					file write `canvas' _n(3) 								///
+					_n(2) `"<script type="text/x-mathjax-config">"' _n 		///
+					_skip(4) "MathJax.Hub.Config({tex2jax: {inlineMath" 	///
+					///": [['§','§'],['##','##'], ['\\(','\\)']]}});" _n 	///
+					": [['\\(','\\)']]}});" _n 				///
+					"</script>" _n(2) 										///
+					"<script type="`"""'"text/javascript"`"""' 				/// 
+					/// _skip(4) "src="`"""'"http://cdn.mathjax.org/
+					///mathjax/latest/MathJax.js" 						///
+					_skip(4) "src="`"""'"$mathjax" 						///
+					"?config=TeX-AMS-MML_HTMLorMML"`"""'">" _n 			///
+					"</script>" _n(2)		
+				}	
 			}
-			// If missing, add the online link!
-			else {
+			
+			// If missing, add the online link to the HTML file!
+			else if "`markup'" == "html" {
 				
 				global localMathJax 1					// tell TXT command
-				
-				if "`math'" == "latex" {
-					global weavermath mathlatex
-					
-					file write `canvas' _n(3) 									///
-					"<script type="`"""'"text/javascript"`"""'" async" _n		///
-					_skip(4) "src="`"""'"https://cdn.mathjax.org/mathjax/latest/"	///
-					"MathJax.js?config=TeX-MML-AM_CHTML"`"""'">" _n 			///	
-					"</script>" _n(2) 											///
-					_n(2) `"<script type="text/x-mathjax-config">"' _n 			///
-					_skip(4) "MathJax.Hub.Config({tex2jax: {inlineMath" _n 		///
-					": [['§','§'],['##','##'], ['\\(','\\)']]}});" _n 			///
-					"</script>" _n(2) 											
-				}
-				
-				if missing("`math'") | "`math'" == "ascii" {
-					global weavermath mathascii
-					file write `canvas' _n(2) 									///
-					"<script type="`"""'"text/javascript"`"""'" async" _n		///
-					_skip(4) "src="`"""'"https://cdn.mathjax.org/mathjax/latest/"	///
-					"MathJax.js?config=AM_HTMLorMML"`"""'">" _n 				///	
-					"</script>" _n(2) 											///
-					"<script type="`"""'"text/x-mathjax-config"`"""'">" _n		///
-					"MathJax.Hub.Config({asciimath2jax: {"	_n					///
-					_skip(4) "delimiters: [['§','§'],['##','##'],['\\(','\\)']]}});" _n		///
-					"</script>" _n(2)	
-				}	
+			
+				file write `canvas' _n(3) 									///
+				"<script type="`"""'"text/javascript"`"""'" async" _n		///
+				_skip(4) "src="`"""'"https://cdn.mathjax.org/mathjax/latest/"	///
+				"MathJax.js?config=TeX-MML-AM_CHTML"`"""'">" _n 			///	
+				"</script>" _n(2) 											///
+				_n(2) `"<script type="text/x-mathjax-config">"' _n 			///
+				_skip(4) "MathJax.Hub.Config({tex2jax: {inlineMath" _n 		///
+				": [['§','§'],['##','##'], ['\\(','\\)']]}});" _n 			///
+				"</script>" _n(2) 											
 			}
-			*/
-			
-			
-			
-			// if missing("`$mathjax") weavercheck
 				
 			********************************************************************
 			*

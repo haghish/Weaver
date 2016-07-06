@@ -35,7 +35,8 @@ version 11
 	* - append the command to Weaver log
 	****************************************************************************
 	
-	version `c(userversion)': `0'				
+	*version `c(userversion)': `0'
+	version `c(stata_version)': `0
 				
     tempname canvas
 	cap file open `canvas' using `"$weaverFullPath"', write text append  

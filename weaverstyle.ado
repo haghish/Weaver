@@ -873,7 +873,7 @@ program define weaverstyle
 					_skip(8) "}" _n(2) ///	
 			"p {" _n ///
 					_skip(8) `"font-family:`font';"' _n  _n ///
-					_skip(8) "margin:0;" _n _n ///
+					///_skip(8) "margin:0;" _n _n ///
 					_skip(8) "display: block;" _n ///
 					_skip(8) "line-height:16px;" _n ///
 					_skip(8) "font-size:14px;" _n  ///

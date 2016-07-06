@@ -31,9 +31,6 @@
 	
 	
 	Ketchup version 1.0  July, 2014
-	Ketchup version 1.1  August, 2014
-	Ketchup version 1.2  August, 2014
-	Ketchup version 1.3  September, 2014 
 	Weaver version  3.3.0  January, 2016 
 */
 
@@ -70,7 +67,8 @@ program define results
 		if "`type'" == "smcl" cap qui log using `smcl', replace smcl
 	}	
 	else cap qui log using `text', replace text
-	version `c(userversion)': `0'									
+	*version `c(userversion)': `0'	
+	version `c(stata_version)': `0
 	cap quietly log close
 			
 	********************************************************************

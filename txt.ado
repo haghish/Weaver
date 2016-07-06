@@ -116,6 +116,7 @@ version 11
 	
 	if "$weaver" != ""  {	
 		
+		/*
 		if "$weaverMarkup" == "html" {
 		
 			if "$weavermath" == "mathlatex" {
@@ -123,7 +124,8 @@ version 11
 				local 0 : subinstr local 0 "###" "$$", all
 				*local 0 : subinstr local 0 "##" "§", all
 			}
-				
+			
+			
 			if "$weavermath" == "mathascii" {
 				forvalues i = 1(1)20 {
 					local 0 : subinstr local 0 "###" `"<span class="math">\("'
@@ -137,6 +139,7 @@ version 11
 				}
 			}
 		}
+		*/
 
 		tempname canvas
 		cap file open `canvas' using `"$weaverFullPath"', write text append

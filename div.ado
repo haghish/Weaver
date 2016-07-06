@@ -106,7 +106,12 @@ version 11		//fails with newer Stata commands
 			if "`type'" == "smcl" cap qui log using `smcl', replace smcl
 		}	
 		else cap qui log using `text', replace text
-		version `c(userversion)': `0'	
+		
+		// NOTE: The `c(userversion)' is not available on Stata 12. This can be 
+		//		 replaced with `c(stata_version)'
+		
+		*version `c(userversion)': `0'	
+		version `c(stata_version)': `0
 		cap quietly log close	
 	
 		********************************************************************
