@@ -29,7 +29,7 @@ d
 f weave.ado
 f help/weave.sthlp
 f help/weaver.sthlp
-f engine/codes.ado
+f codes.ado
 f div.ado
 f help/div.sthlp
 f html.ado
