@@ -1,48 +1,80 @@
-/*
+/*** DO NOT EDIT THIS LINE -----------------------------------------------------
+Version: 1.0.0
+Title: div
+Description: __div__ performs Stata command and echoes the command or output or both
+to the HTML log file. This command belongs to {bf:{help weaver}} packages.
+----------------------------------------------------- DO NOT EDIT THIS LINE ***/
 
-							  Stata Weaver Package
-					   Developed by E. F. Haghish (2014)
-			  Center for Medical Biometry and Medical Informatics
-						University of Freiburg, Germany
-						
-						  haghish@imbi.uni-freiburg.de
 
+/***
+Syntax
+======
+
+    Perform command and echo command and output to the HTML log
+	
+	{cmdab:div} [{cmdab:c:ode} | {cmdab:r:esult}] {it:command}
+
+If the {cmdab:c:ode} subcommand is specified, only the command will be included, 
+supressing the output from Weaver log. In contrast, if the {cmdab:r:esult} 
+subcommand is specified, only the output will be included in the Weaver log and 
+the command will be ignored. 
+
+Description
+===========
+
+__div__ run Stata _command_ and echo the command and output in the HTML log
+in {help weaver} package. If {help weaver} is not in use (i.e. there is not HTML
+log open), __div__ run the command and return the output and at the end, it
+also return a warning that the HTML log is not on.
+
+{pstd}
+The {cmdab:c:ode} subcommand can be added to __div__ command to only echo
+the _command_ in the HTML log and suppress the output from the HTML log. Although
+it continues to print the output in Stata results window.
+
+{pstd}
+The {cmdab:r:esult} subcommand can be added to __div__ command to only echo the
+output in the HTML log and suppress {it:command} from the HTML log.
+Although it continues to print the output in Stata results window.
+
+Example(s)
+=================
+
+   {bf:div} echoes the command and output to the Weaver log. 
+
+        . sysuse auto, clear
+        . div regress mpg weight foreign headroom
+
+    the {cmdab:r:esult} only includes the output in the weaver log
+
+        . div r code misstable summarize
 		
-                   The Weaver Package comes with no warranty    	
-				  
+    the {cmdab:c:ode} subcommand only includes the command in the weaver log
 	
-	Description
-	===========
-	
-	The div command is a part of Weaver package and it echos the command and 
-	output in separate frames, in the dynamic document. 
-	
-	"div" includes two subcommands which are "code" and "result" which call 
-	codes.ado and results.ado respectively
-	
-	The functions of the program changes based on status of Stata log:
-	
-	1- If Stata log is "on"
-		
-		- if the log type is smcl, create a temporary smcl log, translate it 
-		  to text, append the text version to Weaver log, and then append the 
-		  smcl version to Stata log
-		  
-		- if the log is in text, create a text log and then append it to both 
-		  Weaver and Stata logs
-		  
-	2- If the Stata log is "off" or "closed" just create a text log and append 
-	   it to Weaver log. 
-	
-	
-	Weaver version 3.3.7  April, 2016
-*/
+        . div c generate newvar = price
+
+Author
+======
+
+__E. F. Haghish__     
+Center for Medical Biometry and Medical Informatics     
+University of Freiburg, Germany     
+_and_        
+Department of Mathematics and Computer Science       
+University of Southern Denmark     
+haghish@imbi.uni-freiburg.de     
+      
+[Weaver Homepage](www.haghish.com/weaver)         
+Package Updates on [Twitter](http://www.twitter.com/Haghish)    
+
+- - -
+
+_This help file was dynamically produced by[MarkDoc Literate Programming package](http://www.haghish.com/markdoc/)_ 
+***/
+
 
 program define div
 
-version 11		//fails with newer Stata commands
-	
-	
 	
 	****************************************************************************
 	* Searching for "codes" and "results" subcommands
@@ -110,8 +142,8 @@ version 11		//fails with newer Stata commands
 		// NOTE: The `c(userversion)' is not available on Stata 12. This can be 
 		//		 replaced with `c(stata_version)'
 		
-		*version `c(userversion)': `0'	
-		version `c(stata_version)': `0
+		version `c(stata_version)': `0'
+		
 		cap quietly log close	
 	
 		********************************************************************
@@ -232,4 +264,9 @@ version 11		//fails with newer Stata commands
 	}
 		
 end
+
+// DYNAMIC HELP FILE
+// ===================================
+
+*markdoc div.ado, export(sthlp) replace
 

@@ -1,52 +1,139 @@
-/*
+/*** DO NOT EDIT THIS LINE -----------------------------------------------------
+Version: 1.0.0
+Title: tbl
+Description: creates a dynamic table in __HTML__, __LaTeX__, or __Markdown__. 
+It can also align each column to left, center, or right, and also create 
+multiple-colummns for hierarchical tables. This command belongs to 
+{bf:{help Weaver}} package, but it also supports the {bf:{help MarkDoc}} package. 
+The syntax for both packages is to some extent similar (see below), but
+the __tbl__ command behaves differently based on which package is in use. 
+Naturally, the __tbl__ command follows the same features and limits of these 
+packages which are explained in the packages help files. Although, they are 
+briefly mentioned here as well.
+----------------------------------------------------- DO NOT EDIT THIS LINE ***/
 
-					   Developed by E. F. Haghish (2014)
-			  Center for Medical Biometry and Medical Informatics
-						University of Freiburg, Germany
-						
-						  haghish@imbi.uni-freiburg.de
-								   
-                  The Weaver Package comes with no warranty
-				   
-	
-	Description
-	===========
-	
-	The tbl command is used for creating dynamic tables and its syntax is to 
-	some extent similar to "matrix define" command in Stata. Therefore, the 
-	dynamic table could be thought of as a matrix that can include anything, a 
-	number, string, etc. 
-	
-	The tbl command supports both Weaver and MarkDoc packages. However, the 
-	program functions differently based on which package is in use. When Weaver
-	log is on, the command will function for Weaver and when it's off, if there 
-	is a smcl log on, then it functions for MarkDoc. 
-	
-	
-	Functions
-	---------
-	
-	MarkDoc: tbl creates a simple Markdown table, without any hierarchy
-	Weaver : tbl creates a table in HTML or LaTeX, based on which markup 
-			 is in use. 
-			 
-	
-	Note
-	----
-	
-	Before Stata 14, there was no solid function to infer on the type of a
-	variable/scalar/macro. Since Weaver is supposed to run on Stata 11 forth, 
-	I have programmed an alternative procedure to seperate integers from real 
-	numbers, in Macros and Scalars. 
-	
 
-	Version
-	-------
-	
-	Weaver version 2.2    September, 2015  
-	Weaver version 3.3.6  February,  2015
+/***
+Syntax
+======
 
-*/
+    Creates dynamic table in HTML/Markdown
+	
+	{cmdab:tbl} {it:(*[,*...] [\ *[,*...] [\ [...]]])} [{cmd:,} {opt tit:le(str)} {opt w:idth(int)} {opt h:eight(int)} {opt left} {opt center}  ]
+
+{pstd}where the {bf:*} represents a {it:display directive} which is
+
+	{cmd:"}{it:double-quoted string}{cmd:"}
+{p 8 16 2}{cmd:`"}{it:compound double-quoted string}{cmd:"'}{p_end}
+	[{help format:{bf:%}{it:fmt}}] [{cmd:=}]{it:{help exp}}
+	{cmd:,} 
+	{l}
+	{c}
+	{r}
+	{col #}
+
+Description
+===========
+
+__tbl__ is a command in {help Weaver} package that creates a dynamic table 
+in the Weaver log-file. It also can be used with {help MarkDoc} package for a 
+similar purpose, although the program functions differently based on whether 
+Weaver-log is on or not. The supported {it:display directive}s are:
+
+{synoptset 32}
+{synopt:{cmd:"}{it:double-quoted string}{cmd:"}}displays the string without
+              the quotes{p_end}
+
+{synopt:{cmd:`"}{it:compound double-quoted string}{cmd:"'}}display the string
+              without the outer quotes; allows embedded quotes{p_end}
+
+{synopt:[{cmd:%}{it:fmt}] [{cmd:=}] {cmd:exp}}allows results to be formatted;
+         see {bf:{mansection U 12.5FormatsControllinghowdataaredisplayed:[U] 12.5 Formats: Controlling how data are displayed}}{p_end}
+
+{synopt:{cmd:,}}separates the directives of each column of the table{p_end}
+
+{synopt:{l}}if placed before any of the directives mentioned above, 
+this directive create a left-aligned column. {p_end}
+
+{synopt:{c}}creates a center-aligned column. {p_end}
+
+{synopt:{r}}creates a right-aligned column. {p_end}
+
+{synopt:{col #}}if placed before any of the directives mentioned above, 
+this directive will create a multi-column by merging # number of columns. 
+{ul:This directive is only supported in Weaver package}{p_end}
+{p2colreset}{...}
+
+
+Weaver package
+==============
+
+When the {help Weaver} package is in use, __tbl__ command creates a dynamic  
+table in HTML or LaTeX, depending on the markup language used in Weaver log. 
+If Weaver HTML is in use, __tbl__ will be able to interpret the 
+{help Weaver Markup} codes as well as 
+{help Weaver_mathematical_notation:Weaver mathematical notations}. In other words, 
+Weaver Markups and Weaver mathematical notations
+can be used as a display directives within the __tbl__ command to alter other 
+directives or display mathematical signs and formulas. Advanced users can also use HTML 
+code to alter the table.
+
+If LaTeX markup is used for creating the Weaver log, then {cmd:tbl} command 
+creates a LaTeX table. However, neither {help Weaver_Markup:Weaver Markup} nor 
+{help Weaver_mathematical_notation:Weaver mathematical notations} are not 
+supporting LaTeX. Instead, LaTeX mathematical notations can be 
+used for writing mathematical notations or altering the table.
+
+MarkDoc package
+==============
+
+When Weaver log file is closed or off and the smcl log is on, the __tbl__ 
+command creates a Markdown dynamic table in the smcl log file. 
+
+When __tbl__ creates a markdown table, {help Weaver_Markup:Weaver Markup} and 
+{help Weaver_mathematical_notation:Weaver mathematical notations} are no longer 
+supported. Moreover, the display directives that is used for creating 
+a multi-column which is __{col #}__ is not supported. 
+
+Remarks
+=======
+
+For using LaTeX symbols in the __tbl__ command, place a "{bf:#}" before "{bf:\}" 
+of LaTeX code to avoid confusion with backslash required for separating lines. 
+For example, write __#\beta__ instead of __\beta__ to render the Beta in the 
+table. More over, for rendering LaTeX mathematical notations in the __tbl__ 
+command, use double dollar sign "{bf:$$}". 
+
+Examples
+=================
+
+    creating a simple 2x3 table with string and numbers
+        . tbl ("Column 1", "Column 2", "Column 3" {bf:\} 10, 100, 1000 )
+
+    creating a table that includes scalars and aligns the columns to left, center, and right respectively
+        . tbl ({l}"Left", {c}"Centered", {r}"Right" {bf:\} c(os),  c(machine_type), c(username))
+
+
+Author
+======
+
+__E. F. Haghish__     
+Center for Medical Biometry and Medical Informatics     
+University of Freiburg, Germany     
+_and_        
+Department of Mathematics and Computer Science       
+University of Southern Denmark     
+haghish@imbi.uni-freiburg.de     
+      
+[Weaver Homepage](www.haghish.com/weaver)         
+Package Updates on [Twitter](http://www.twitter.com/Haghish) 
+
+- - -
+
+_This help file was dynamically produced by[MarkDoc Literate Programming package](http://www.haghish.com/markdoc/)_ 
+***/
+
+
 
 program define tbl
     version 11
@@ -143,7 +230,7 @@ program define tbl
 	* - print the table's title
 	* - interpret scalars
 	****************************************************************************
-	/**
+	
 	if "$weaver" ~= ""  {
 			
 		html
@@ -698,7 +785,7 @@ program define tbl
 	}
 	
 	
-	**/
+	
 	****************************************************************************
 	* MarkDoc PACKAGES
 	* ----------------
@@ -1388,4 +1475,11 @@ program define tbl
 			
 			
 end
+
+
+
+// DYNAMIC HELP FILE
+// ===================================
+
+*markdoc tbl.ado, export(sthlp) replace
 

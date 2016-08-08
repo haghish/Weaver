@@ -34,7 +34,6 @@
 	Weaver version  3.3.0  January, 2016 
 */
 
-		
 
 program define results
 //version 11
@@ -67,8 +66,7 @@ program define results
 		if "`type'" == "smcl" cap qui log using `smcl', replace smcl
 	}	
 	else cap qui log using `text', replace text
-	*version `c(userversion)': `0'	
-	version `c(stata_version)': `0
+	version `c(stata_version)': `0'
 	cap quietly log close
 			
 	********************************************************************
@@ -128,6 +126,7 @@ program define results
 	* - append the content of the temporary log file to Stata log
 	* - only write the results if there is at least 1 line in the log
 	********************************************************************
+	
 	cap file open `canvas' using `"$weaverFullPath"', write text append
 	cap file open `needle' using "`text'", read
 	cap file read `needle' line
