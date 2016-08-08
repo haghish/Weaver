@@ -1,22 +1,92 @@
-/*
+/*** DO NOT EDIT THIS LINE -----------------------------------------------------
+Version: 1.0.0
+Title: img
+Description: Imports images and graphs into the dynamic document. 
+This command belongs to {bf:{help Weaver}} package but it also supports the 
+{bf:{help MarkDoc}} package. The syntax for both packages is the same but
+the __img__ command behave differently based on which of the packages is in use.
+----------------------------------------------------- DO NOT EDIT THIS LINE ***/
 
-							  Stata Weaver Package
-					   Developed by E. F. Haghish (2014)
-			  Center for Medical Biometry and Medical Informatics
-						University of Freiburg, Germany
-						
-						  haghish@imbi.uni-freiburg.de
 
-		
-                  The Weaver Package comes with no warranty    	
+/***
+Syntax
+======
+
+    Import graphical files in the dynamic document
 	
-	img description
-	===============
+	{cmdab:img} [using {it:{help filename}}] [{cmd:,} {opt tit:le(str)} {opt w:idth(int)} {opt h:eight(int)} {opt left} {opt center}  ]
+
+    Automatically include the {it:current graph} from Stata in the dynamic document
 	
-	img imports graphs into Weaver packages. 
-	
-	Weaver version 3.3.4  February, 2016 
-*/
+	{cmdab:img} [{cmd:,} {opt tit:le(str)} {opt w:idth(int)} {opt h:eight(int)} {opt left} {opt center}  ]
+
+Description
+===========
+
+The __img__ command imports images and graphs into the dynamic document. 
+Any graphical file that is compatible with a web-browser can be inserted in the 
+html log. This command belongs to {help Weaver} package but it also supports the 
+{help MarkDoc} package. The syntax for both packages is the same but
+the __img__ command behave differently based on which of the packages is in use. 
+If Weaver html log and smcl log are open at the same time, the command 
+only functions for Weaver and not for MarkDoc. In contrast, when Weaver html log is
+not open and scml log is on, it will function for MarkDoc package. 
+
+Options
+=======
+
+{phang}{cmdab:tit:tle(}{it:str}{cmd:)} specify a header string (title) for the figure {p_end}
+
+{phang}{opt w:idth(int)} define the width of the figure. This option must be used 
+with {opt h:ight(int)} option. Otherwise, it will keep the actual hight of the 
+figure and only changes the width. {p_end}
+
+{phang}{opt h:ight(int)} define the hight of the figure. This option must be used 
+with {opt w:idth(int)} option for the same reason mentioned above. {p_end}
+ 
+{phang}{cmdab::left} this option is the default and it aligns the figure to the 
+left-side of the dynamic document. {p_end}
+
+{phang}{cmdab::left} aligns the figure to the center of the dynamic document. {p_end}
+
+Examples
+=================
+
+You have created a graph in Stata. Before importing in the HTML log, you should 
+export it in a format that can be interpreted in html. Such as PNG which is recommended 
+because it is lossless format and the same file can be used for publication. 
+
+        . sysuse auto
+        . histogram price
+        . graph export price.png, replace 
+
+        . img using price.png
+        . img using price.png, title("Histogram of the Price variable")
+        . img using price.png, w(300) h(200) center
+    
+	Alternatively, the image can be obtained from Stata automatically
+
+        . histogram mpg
+        . img, title("Histogram of the MPG variable")
+
+Author
+======
+
+__E. F. Haghish__     
+Center for Medical Biometry and Medical Informatics     
+University of Freiburg, Germany     
+_and_        
+Department of Mathematics and Computer Science       
+University of Southern Denmark     
+haghish@imbi.uni-freiburg.de     
+      
+[Weaver Homepage](www.haghish.com/weaver)         
+Package Updates on [Twitter](http://www.twitter.com/Haghish)  
+
+- - -
+
+_This help file was dynamically produced by[MarkDoc Literate Programming package](http://www.haghish.com/markdoc/)_ 
+***/
 
 
 program define img
@@ -346,3 +416,8 @@ version 11
 		
 end
 
+
+// DYNAMIC HELP FILE
+// ===================================
+
+*markdoc img.ado, export(sthlp) replace

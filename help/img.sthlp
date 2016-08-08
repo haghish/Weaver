@@ -1,24 +1,13 @@
 {smcl}
-
-{marker title}{...}
+{right:version 1.0.0}
 {title:Title}
 
 {phang}
-{cmdab:img} {hline 2} Imports images and graphs into the dynamic document. 
-This command belongs to {bf:{help Weaver}} package but it also supports the 
-{bf:{help MarkDoc}} package. The syntax for both packages is the same but
-the {cmdab:img} command behave differently based on which of the packages is in use. 
+{cmd:img} {hline 2} Imports images and graphs into the dynamic document. This command belongs to {bf:{help Weaver}} package but it also supports the 
+ {bf:{help MarkDoc}} package. The syntax for both packages is the same but
+ the {bf:img} command behave differently based on which of the packages is in use.
+ 
 
-
-{title:Author} 
-        {p 8 8 2}E. F. Haghish{break} 
-	Center for Medical Biometry and Medical Informatics{break}
-	University of Freiburg, Germany{break} 
-        {browse haghish@imbi.uni-freiburg.de}{break}
-	{browse "http://www.haghish.com/statistics/stata-blog/reproducible-research/weaver.php":{it:http://haghish.com/weaver}}{break}
-   
-   
-{marker syntax}{...}
 {title:Syntax}
 
     Import graphical files in the dynamic document
@@ -28,24 +17,19 @@ the {cmdab:img} command behave differently based on which of the packages is in 
     Automatically include the {it:current graph} from Stata in the dynamic document
 	
 	{cmdab:img} [{cmd:,} {opt tit:le(str)} {opt w:idth(int)} {opt h:eight(int)} {opt left} {opt center}  ]
-	
 
-{marker description}{...}
+
 {title:Description}
 
-{pstd}
-The {cmdab:img} command imports images and graphs into the dynamic document. 
+{p 4 4 2}
+The {bf:img} command imports images and graphs into the dynamic document. 
 Any graphical file that is compatible with a web-browser can be inserted in the 
 html log. This command belongs to {help Weaver} package but it also supports the 
 {help MarkDoc} package. The syntax for both packages is the same but
-the {cmdab:img} command behave differently based on which of the packages is in use. 
+the {bf:img} command behave differently based on which of the packages is in use. 
 If Weaver html log and smcl log are open at the same time, the command 
 only functions for Weaver and not for MarkDoc. In contrast, when Weaver html log is
 not open and scml log is on, it will function for MarkDoc package. 
-
-{p 4 4 2}
-{bf:Note:} This command 
-only support MarkDoc if the document is exported in {bf:html} or {bf:pdf} formats. 
 
 
 {title:Options}
@@ -58,29 +42,52 @@ figure and only changes the width. {p_end}
 
 {phang}{opt h:ight(int)} define the hight of the figure. This option must be used 
 with {opt w:idth(int)} option for the same reason mentioned above. {p_end}
- 
+
 {phang}{cmdab::left} this option is the default and it aligns the figure to the 
 left-side of the dynamic document. {p_end}
 
 {phang}{cmdab::left} aligns the figure to the center of the dynamic document. {p_end}
 
 
-{marker example}{...}
-{title:Example of interactive use}
+{title:Examples}
 
-{pstd}
+{p 4 4 2}
 You have created a graph in Stata. Before importing in the HTML log, you should 
 export it in a format that can be interpreted in html. Such as PNG which is recommended 
 because it is lossless format and the same file can be used for publication. 
 
-{phang2}{cmd:. sysuse auto}{p_end}
-{phang2}{cmd:. histogram price}{p_end}
-{phang2}{cmd:. graph export price.png, replace}{p_end}
+        . sysuse auto
+        . histogram price
+        . graph export price.png, replace 
 
-{phang2}{cmd:. img using price.png}{p_end}
-{phang2}{cmd:. img using price.png, title(Figure 1. This is the histogram of the Price variable)}{p_end}
-{phang2}{cmd:. img using price.png, w(300) h(200) center}{p_end} 
-{pstd}Alternatively, the image can be obtained from Stata automatically
+        . img using price.png
+        . img using price.png, title("Histogram of the Price variable")
+        . img using price.png, w(300) h(200) center
 
-{phang2}{cmd:. histogram mpg}{p_end}
-{phang2}{cmd:. img, title("Histogram of the MPG variable")}{p_end}
+{p 4 4 2}
+	Alternatively, the image can be obtained from Stata automatically
+
+        . histogram mpg
+        . img, title("Histogram of the MPG variable")
+
+
+{title:Author}
+
+{p 4 4 2}
+{bf:E. F. Haghish}       {break}
+Center for Medical Biometry and Medical Informatics       {break}
+University of Freiburg, Germany       {break}
+{it:and}          {break}
+Department of Mathematics and Computer Science         {break}
+University of Southern Denmark       {break}
+haghish@imbi.uni-freiburg.de       {break}
+
+{p 4 4 2}
+{browse "www.haghish.com/weaver":Weaver Homepage}           {break}
+Package Updates on  {browse "http://www.twitter.com/Haghish":Twitter}    {break}
+
+    {hline}
+
+{p 4 4 2}
+{it:This help file was dynamically produced by {browse "http://www.haghish.com/markdoc/":MarkDoc Literate Programming package}} 
+

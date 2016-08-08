@@ -1,30 +1,34 @@
-/*******************************************************************************
+/*** DO NOT EDIT THIS LINE -----------------------------------------------------
+Version: 1.0.0
+Title: html
+Description: writes the given text on the {help Weaver} log
+----------------------------------------------------- DO NOT EDIT THIS LINE ***/
 
-							  Stata Weaver Package
-					   Developed by E. F. Haghish (2014)
-			  Center for Medical Biometry and Medical Informatics
-						University of Freiburg, Germany
-						
-						  haghish@imbi.uni-freiburg.de
 
-		
-                  The Weaver Package comes with no warranty    	
-				  
-				  
-	Weaver version 1.0  August, 2014
-	Weaver version 1.1  August, 2014
-	Weaver version 1.2  August, 2014
-	Weaver version 1.3  September, 2014 
-	Weaver version 1.4  October, 2014 
-	Weaver version 2.0  August, 2015 
-	Weaver version 3.3.0  January, 2016
-*******************************************************************************/
+/***
+
+Author
+======
+
+__E. F. Haghish__     
+Center for Medical Biometry and Medical Informatics     
+University of Freiburg, Germany     
+_and_        
+Department of Mathematics and Computer Science       
+University of Southern Denmark     
+haghish@imbi.uni-freiburg.de     
+      
+[Weaver Homepage](www.haghish.com/weaver)         
+Package Updates on [Twitter](http://www.twitter.com/Haghish)     
+
+- - -
+
+_This help file was dynamically produced by[MarkDoc Literate Programming package](http://www.haghish.com/markdoc/)_ 
+***/
+
 	
 
-	/* ----     html code     ---- */
-	
-	* adds html code
-	program define html
+program define html
         version 11
         
         //if "$weaver" != "" confirm file `"$weaver"'
@@ -45,5 +49,11 @@
 		}  
 		*/
 		
-	end
+end
+
+// DYNAMIC HELP FILE
+// ===================================
+
+*markdoc html.ado, export(sthlp) replace
 	
+
