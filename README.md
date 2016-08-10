@@ -58,7 +58,7 @@ The __Weaver__ releases are also hosted on SSC server. So you can download the l
 You can also directly download __Weaver__ from GitHub which includes the latest beta version (unreleased). The `force` 
 option ensures that you _reinstall_ the package, even if the release date is not yet changed, and thus, must be specified. 
   
-    net install weaver, force  from("https://raw.githubusercontent.com/haghish/weaver/master/")
+    net install weaver, replace  from("https://raw.githubusercontent.com/haghish/weaver/master/")
     
 __Weaver__ also requires one additional Stata packages which is __`statax`__, hosted on SSC.
 
