@@ -398,6 +398,7 @@ version 11
 	}
 
 	// Check the Status of the log files for Weaver and MarkDoc					
+/*
 	qui log query
 	if "`r(status)'" ~= "on" & "$weaver" == "" {
 		di as txt _n(2) "{hline}"
@@ -407,7 +408,7 @@ version 11
 		di as txt "{c 149} If you wish to use {help markdoc} package, turn the smcl log on"		
 		di as txt "{hline}{smcl}"	_n
 	}
-	
+*/	
 	/*
 	if "$weaver" == "" & "`code'" == "1" {
 		capture local m : display `0'					
