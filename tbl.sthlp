@@ -1,23 +1,19 @@
 {smcl}
-{right:version 1.0.0}
 {title:Title}
 
 {phang}
 {cmd:tbl} {hline 2} creates a dynamic table in {bf:HTML}, {bf:LaTeX}, or {bf:Markdown}. It can also align each column to left, center, or right, and also create 
  multiple-colummns for hierarchical tables. This command belongs to 
  {bf:{help Weaver}} package, but it also supports the {bf:{help MarkDoc}} package. 
- The syntax for both packages is to some extent similar (see below), but
- the {bf:tbl} command behaves differently based on which package is in use. 
- Naturally, the {bf:tbl} command follows the same features and limits of these 
- packages which are explained in the packages help files. Although, they are 
- briefly mentioned here as well.
+ For using the command in {help MarkDoc} package 
+ {browse "https://github.com/haghish/MarkDoc/wiki/tbl":see the MarkDoc documentation on GitHub wiki}
  
 
 {title:Syntax}
 
     Creates dynamic table in HTML/Markdown
 	
-	{cmdab:tbl} {it:(*[,*...] [\ *[,*...] [\ [...]]])} [{cmd:,} {opt tit:le(str)} {opt w:idth(int)} {opt h:eight(int)} {opt left} {opt center}  ]
+	{cmdab:tbl} {it:(*[,*...] [\ *[,*...] [\ [...]]])} [{cmd:,} {opt tit:le(str)} {opt w:idth(int)} {opt h:eight(int)} {opt left} {opt center} ]
 
 {pstd}where the {bf:*} represents a {it:display directive} which is
 
@@ -31,13 +27,10 @@
 	{col #}
 
 
-{title:Description}
+{title:Display directives}
 
 {p 4 4 2}
-{bf:tbl} is a command in {help Weaver} package that creates a dynamic table 
-in the Weaver log-file. It also can be used with {help MarkDoc} package for a 
-similar purpose, although the program functions differently based on whether 
-Weaver-log is on or not. The supported {it:display directive}s are:
+The supported {it:display directive}s are:
 
 {synoptset 32}
 {synopt:{cmd:"}{it:double-quoted string}{cmd:"}}displays the string without
@@ -59,17 +52,16 @@ this directive create a left-aligned column. {p_end}
 {synopt:{r}}creates a right-aligned column. {p_end}
 
 {synopt:{col #}}if placed before any of the directives mentioned above, 
-this directive will create a multi-column by merging # number of columns. 
-{ul:This directive is only supported in Weaver package}{p_end}
+this directive will create a multi-column by merging # number of columns. {p_end}
 {p2colreset}{...}
 
 
 
-{title:Weaver package}
+{title:Description}
 
 {p 4 4 2}
-When the {help Weaver} package is in use, {bf:tbl} command creates a dynamic    {break}
-table in HTML or LaTeX, depending on the markup language used in Weaver log. 
+{bf:tbl} is a command in {help Weaver} package that creates a dynamic table 
+in HTML or LaTeX, depending on the markup language used in Weaver log. 
 If Weaver HTML is in use, {bf:tbl} will be able to interpret the 
 {help Weaver Markup} codes as well as 
 {help Weaver_mathematical_notation:Weaver mathematical notations}. In other words, 
@@ -86,27 +78,14 @@ supporting LaTeX. Instead, LaTeX mathematical notations can be
 used for writing mathematical notations or altering the table.
 
 
-{title:MarkDoc package}
-
-{p 4 4 2}
-When Weaver log file is closed or off and the smcl log is on, the {bf:tbl} 
-command creates a Markdown dynamic table in the smcl log file. 
-
-{p 4 4 2}
-When {bf:tbl} creates a markdown table, {help Weaver_Markup:Weaver Markup} and 
-{help Weaver_mathematical_notation:Weaver mathematical notations} are no longer 
-supported. Moreover, the display directives that is used for creating 
-a multi-column which is {bf:{col #}} is not supported. 
-
-
 {title:Remarks}
 
 {p 4 4 2}
-For using LaTeX symbols in the {bf:tbl} command, place a "{bf:#}" before "{bf:\}" 
-of LaTeX code to avoid confusion with backslash required for separating lines. 
-For example, write {bf:#\beta} instead of {bf:\beta} to render the Beta in the 
-table. More over, for rendering LaTeX mathematical notations in the {bf:tbl} 
-command, use double dollar sign "{bf:$$}". 
+Note that the tbl command parses the rows using the backslash symbol. Therefore, 
+to include LATEX notations in a dynamic table that begin with a backslash such as 
+{bf:\beta} or {bf:95\%}, double backslash should be used to avoid conflict with 
+the parsing syntax (e.g. {bf:\\beta} and {bf:95\\%} )
+
 
 
 {title:Examples}
@@ -114,9 +93,13 @@ command, use double dollar sign "{bf:$$}".
     creating a simple 2x3 table with string and numbers
         . tbl ("Column 1", "Column 2", "Column 3" {bf:\} 10, 100, 1000 )
 
+		
     creating a table that includes scalars and aligns the columns to left, center, and right respectively
         . tbl ({l}"Left", {c}"Centered", {r}"Right" {bf:\} c(os),  c(machine_type), c(username))
 
+		
+    write mathematical notations
+	    . tbl ("\( \\beta \)", "\( \\epsilon \)" \ "\( \\sum \)", "\( \\prod \)")
 
 
 {title:Author}

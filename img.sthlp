@@ -1,11 +1,11 @@
 {smcl}
-{right:version 1.0.0}
 {title:Title}
 
 {phang}
-{cmd:img} {hline 2} Imports images and graphs into the dynamic document. This command belongs to {bf:{help Weaver}} package but it also supports the 
- {bf:{help MarkDoc}} package. The syntax for both packages is the same but
- the {bf:img} command behave differently based on which of the packages is in use.
+{cmd:img} {hline 2} captures and imports images and graphs into the dynamic document. This command belongs to {bf:{help Weaver}} package but it also supports the 
+ {bf:{help MarkDoc}} package. This document only describes {bf:txt} in Weaver package. 
+ For using the command in MarkDoc package, 
+ {browse "https://github.com/haghish/MarkDoc/wiki/img/":read the MarkDoc manual}. 
  
 
 {title:Syntax}

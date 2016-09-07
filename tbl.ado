@@ -1,15 +1,12 @@
 /*** DO NOT EDIT THIS LINE -----------------------------------------------------
-Version: 1.0.0
+Version:
 Title: tbl
 Description: creates a dynamic table in __HTML__, __LaTeX__, or __Markdown__. 
 It can also align each column to left, center, or right, and also create 
 multiple-colummns for hierarchical tables. This command belongs to 
 {bf:{help Weaver}} package, but it also supports the {bf:{help MarkDoc}} package. 
-The syntax for both packages is to some extent similar (see below), but
-the __tbl__ command behaves differently based on which package is in use. 
-Naturally, the __tbl__ command follows the same features and limits of these 
-packages which are explained in the packages help files. Although, they are 
-briefly mentioned here as well.
+For using the command in {help MarkDoc} package 
+[see the MarkDoc documentation on GitHub wiki](https://github.com/haghish/MarkDoc/wiki/tbl)
 ----------------------------------------------------- DO NOT EDIT THIS LINE ***/
 
 
@@ -19,7 +16,7 @@ Syntax
 
     Creates dynamic table in HTML/Markdown
 	
-	{cmdab:tbl} {it:(*[,*...] [\ *[,*...] [\ [...]]])} [{cmd:,} {opt tit:le(str)} {opt w:idth(int)} {opt h:eight(int)} {opt left} {opt center}  ]
+	{cmdab:tbl} {it:(*[,*...] [\ *[,*...] [\ [...]]])} [{cmd:,} {opt tit:le(str)} {opt w:idth(int)} {opt h:eight(int)} {opt left} {opt center} ]
 
 {pstd}where the {bf:*} represents a {it:display directive} which is
 
@@ -32,13 +29,10 @@ Syntax
 	{r}
 	{col #}
 
-Description
+Display directives
 ===========
 
-__tbl__ is a command in {help Weaver} package that creates a dynamic table 
-in the Weaver log-file. It also can be used with {help MarkDoc} package for a 
-similar purpose, although the program functions differently based on whether 
-Weaver-log is on or not. The supported {it:display directive}s are:
+The supported {it:display directive}s are:
 
 {synoptset 32}
 {synopt:{cmd:"}{it:double-quoted string}{cmd:"}}displays the string without
@@ -60,16 +54,15 @@ this directive create a left-aligned column. {p_end}
 {synopt:{r}}creates a right-aligned column. {p_end}
 
 {synopt:{col #}}if placed before any of the directives mentioned above, 
-this directive will create a multi-column by merging # number of columns. 
-{ul:This directive is only supported in Weaver package}{p_end}
+this directive will create a multi-column by merging # number of columns. {p_end}
 {p2colreset}{...}
 
 
-Weaver package
+Description
 ==============
 
-When the {help Weaver} package is in use, __tbl__ command creates a dynamic  
-table in HTML or LaTeX, depending on the markup language used in Weaver log. 
+__tbl__ is a command in {help Weaver} package that creates a dynamic table 
+in HTML or LaTeX, depending on the markup language used in Weaver log. 
 If Weaver HTML is in use, __tbl__ will be able to interpret the 
 {help Weaver Markup} codes as well as 
 {help Weaver_mathematical_notation:Weaver mathematical notations}. In other words, 
@@ -84,25 +77,14 @@ creates a LaTeX table. However, neither {help Weaver_Markup:Weaver Markup} nor
 supporting LaTeX. Instead, LaTeX mathematical notations can be 
 used for writing mathematical notations or altering the table.
 
-MarkDoc package
-==============
-
-When Weaver log file is closed or off and the smcl log is on, the __tbl__ 
-command creates a Markdown dynamic table in the smcl log file. 
-
-When __tbl__ creates a markdown table, {help Weaver_Markup:Weaver Markup} and 
-{help Weaver_mathematical_notation:Weaver mathematical notations} are no longer 
-supported. Moreover, the display directives that is used for creating 
-a multi-column which is __{col #}__ is not supported. 
-
 Remarks
 =======
 
-For using LaTeX symbols in the __tbl__ command, place a "{bf:#}" before "{bf:\}" 
-of LaTeX code to avoid confusion with backslash required for separating lines. 
-For example, write __#\beta__ instead of __\beta__ to render the Beta in the 
-table. More over, for rendering LaTeX mathematical notations in the __tbl__ 
-command, use double dollar sign "{bf:$$}". 
+Note that the tbl command parses the rows using the backslash symbol. Therefore, 
+to include LATEX notations in a dynamic table that begin with a backslash such as 
+__\beta__ or __95\%__, double backslash should be used to avoid conflict with 
+the parsing syntax (e.g. __\\beta__ and __95\\%__ )
+
 
 Examples
 =================
@@ -110,9 +92,13 @@ Examples
     creating a simple 2x3 table with string and numbers
         . tbl ("Column 1", "Column 2", "Column 3" {bf:\} 10, 100, 1000 )
 
+		
     creating a table that includes scalars and aligns the columns to left, center, and right respectively
         . tbl ({l}"Left", {c}"Centered", {r}"Right" {bf:\} c(os),  c(machine_type), c(username))
 
+		
+    write mathematical notations
+	    . tbl ("\( \\beta \)", "\( \\epsilon \)" \ "\( \\sum \)", "\( \\prod \)")
 
 Author
 ======
@@ -134,12 +120,14 @@ _This help file was dynamically produced by[MarkDoc Literate Programming package
 ***/
 
 
-
+*capture prog drop tbl
 program define tbl
     version 11
 	syntax anything(name=0) [, Width(numlist max=1 >0 <=14000)] 				///
 	[Height(numlist max=1 >0 <=14000)] [left|center] [TITle(str)]  				///
 	[Markup(str)]
+	
+	
 	
 	local 0 : subinstr local 0 "\(" "//(", all
 	local 0 : subinstr local 0 "\)" "//)", all
@@ -199,9 +187,16 @@ program define tbl
 	local 0 : subinstr local 0 `"$""' "$ {c 34}", all
 	local 0 : subinstr local 0 `"""' "{c 34}", all	
 	
-	//For interpreting LaTeX Mathematics
-	local 0 : subinstr local 0 "$\"  "$ \", all
+	//For interpreting LaTeX Mathematics: behave differently for Weaver and MarkDoc
+	if "$weaver" ~= ""  { 
+		local 0 : subinstr local 0 "$\"  "$ \", all
+	}
+	else {
+		local 0 : subinstr local 0 "$\"  "{c 36}\", all 
+	}
+	
 	local 0 : subinstr local 0 "\\" "{c 92}", all //Problematic LaTeX
+	
 	
 *	local 0 : subinstr local 0 "$ \" "$ {c 92}", all
 *	local 0 : subinstr local 0 "#\" "{c 92}", all //Problematic LaTeX
@@ -372,8 +367,14 @@ program define tbl
 									}
 								}
 								
+								// String Scalar
+								else if !missing("`test2'") & "`test3'" != "`test2'" {							
+									local 1 `test2'
+								}
+								
 								//Strings
 								if missing("`test2'") {						
+									local 1 : subinstr local 1 "{c 92}" "\", all
 									local 1 : subinstr local 1 "{c 34}" "", all
 								}
 							}
@@ -456,6 +457,7 @@ program define tbl
 							
 								capture local test2 : display `1'	//search scalars
 								capture local test3 : display int(`test2')								
+								
 								// Integers
 								if "`test3'" == "`test2'"  {	//is an integer							
 									capture local m : display `1'
@@ -470,6 +472,11 @@ program define tbl
 									if _rc == 0 {
 										local 1 `m'
 									}
+								}
+								
+								// String Scalar
+								else if !missing("`test2'") & "`test3'" != "`test2'" {							
+									local 1 `test2'
 								}
 								
 								//Strings
@@ -656,6 +663,7 @@ program define tbl
 							
 								capture local test2 : display `1'	//search scalars
 								capture local test3 : display int(`test2')								
+								
 								// Integers
 								if "`test3'" == "`test2'"  {	//is an integer							
 									capture local m : display `1'
@@ -670,6 +678,11 @@ program define tbl
 									if _rc == 0 {
 										local 1 `m'
 									}
+								}
+								
+								// String Scalar
+								else if !missing("`test2'") & "`test3'" != "`test2'" {							
+									local 1 `test2'
 								}
 								
 								//Strings
@@ -715,6 +728,11 @@ program define tbl
 									if _rc == 0 {
 										local 1 `m'
 									}
+								}
+								
+								// String Scalar
+								else if !missing("`test2'") & "`test3'" != "`test2'" {							
+									local 1 `test2'
 								}
 								
 								//Strings
@@ -998,6 +1016,11 @@ program define tbl
 									}
 								}
 								
+								// String Scalar
+								else if !missing("`test2'") & "`test3'" != "`test2'" {							
+									local 1 `test2'
+								}
+								
 								//Strings
 								if missing("`test2'") {						
 									local 1 : subinstr local 1 "{c 34}" "", all
@@ -1079,6 +1102,11 @@ program define tbl
 									if _rc == 0 {
 										local 1 `m'
 									}
+								}
+								
+								// String Scalar
+								else if !missing("`test2'") & "`test3'" != "`test2'" {							
+									local 1 `test2'
 								}
 								
 								//Strings
@@ -1312,6 +1340,7 @@ program define tbl
 							
 								capture local test2 : display `1'	//search scalars
 								capture local test3 : display int(`test2')								
+								
 								// Integers
 								if "`test3'" == "`test2'"  {	//is an integer							
 									capture local m : display `1'
@@ -1327,6 +1356,13 @@ program define tbl
 										local 1 `m'
 									}
 								}
+								
+								// String Scalar
+								else if !missing("`test2'") & "`test3'" != "`test2'" {							
+									local 1 `test2'
+								}
+								
+								
 								
 								//Strings
 								if missing("`test2'") {		
@@ -1380,6 +1416,11 @@ program define tbl
 									if _rc == 0 {
 										local 1 `m'
 									}
+								}
+								
+								// String Scalar
+								else if !missing("`test2'") & "`test3'" != "`test2'" {							
+									local 1 `test2'
 								}
 								
 								//Strings

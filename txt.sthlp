@@ -1,30 +1,27 @@
 {smcl}
-{right:updated in Weaver 3.3.3 : February, 2016}
+{smcl}
 {marker title}{...}
 {title:Title}
 
 {phang}
 {cmdab:txt} {hline 2} Prints string and values of scalar expressions or macros 
-in dynamic document and by default writes a 
-text paragraph. The primary purpose of the command is writing dynamic text, to 
-interpret analysis results in the dynamic document. This command belongs to {help Weaver} package, but it also supports the 
+in dynamic document. By default, the command writes a 
+text paragraph. The primary purpose of the command is writing dynamic text to 
+interpret analysis results in the dynamic document. This command belongs 
+to {help Weaver} package, but it also supports the 
 {help MarkDoc} package. The syntax for both packages is similar, but
 the {cmdab:txt} command behaves differently based on which package is in use. 
 If Weaver log is on, {cmd:txt} functions for Weaver package only. 
-
-
-{title:Author} 
-        {p 8 8 2}E. F. Haghish{break} 
-	Center for Medical Biometry and Medical Informatics{break}
-	University of Freiburg, Germany{break} 
-        {browse haghish@imbi.uni-freiburg.de}{break}
-	{browse "http://www.haghish.com/statistics/stata-blog/reproducible-research/weaver.php":{it:http://haghish.com/weaver}}{break}
-   
+This document only describes the {bf:txt} command in Weaver package. For using the 
+command in {help MarkDoc} package 
+{browse "https://github.com/haghish/MarkDoc/wiki/txt":see the MarkDoc documentation on GitHub wiki}
 
 {marker syntax}{...}
 {title:Syntax}
 
-    Prints dynamic text in the Weaver log or smcl log
+{p 4 4 2}
+Prints dynamic text on the Weaver log or smcl log. The {opt c:ode} subcommand 
+prints the output "as is" in the dynamic document. 
 	
 	{cmdab:txt} [{opt c:ode}] [{it:display_directive} [{it:display_directive} [{it:...}]]]
 
@@ -32,7 +29,7 @@ If Weaver log is on, {cmd:txt} functions for Weaver package only.
 
 	{help weaver_markup:Weaver Markup}
 	{cmd:"}{it:double-quoted string}{cmd:"}
-{p 8 16 2}{cmd:`"}{it:compound double-quoted string}{cmd:"'}{p_end}
+{p 8 16 2}{cmd:{c 96}"}{it:compound double-quoted string}{cmd:"{c 39}}{p_end}
 	[{help format:{bf:%}{it:fmt}}] [{cmd:=}]{it:{help exp}}
 	{cmd:_skip(#)}
 	{cmdab:_col:umn:(}{it:#}{cmd:)}
@@ -41,28 +38,25 @@ If Weaver log is on, {cmd:txt} functions for Weaver package only.
 	{cmd:,}
 	{cmd:,,}
 
-	
 {marker description}{...}
+
 {title:Description}
 
-{pstd}
-{cmd:txt} prints dynamic text i.e. strings and values of scalar expressions or macros in the Weaver or the 
+{p 4 4 2}
+{bf:txt} prints dynamic text i.e. strings and values of scalar expressions or macros in the Weaver or the 
 smcl log-file. {cmd:txt} also prints output from the user-written Stata programs. Any of the 
 supported markup languages can be used to alter the string and scalar expressions. This command 
-s to some extent similar to {cmd:display} command in Stata. For example, 
+is to some extent similar to {cmd:display} command in Stata. For example, 
 it can be used to carry out a mathematical calculation by typing {cmd:txt 1+1}. It also 
 supports many of the display directives as well. 
 
-{pstd}
-The {opt c:ode} subcommand prints the output as "line of code" in the dynamic document. This 
-subcommand functions differently based on whether {help markdoc} or {help weaver} packages is in use (see below). 
-
-{pstd}
+{p 4 4 2}
 Note that in contrast to the {help display} command that prints the 
 {help scalar} unformatted, the {cmd:txt} command uses the default 
-{bf:%10.2f} format for displaying the scalar. This feature helps the users 
-avoid specifying the format for every scalar, although specifying the format 
-expression can overrule the default format. For example:
+{bf:%10.2f} format for displaying the scalar. This feature helps the users avoid 
+specifying the format for every scalar, due to popularity of this 
+format. However, specifying the format expression can overrule the default format. 
+For example:
 
 	{cmd:. scalar num = 10.123}
 	{cmd:. txt "The value of the scalar is " %5.1f num}
@@ -70,7 +64,7 @@ expression can overrule the default format. For example:
 {pstd}
 The example above will print the scalar with only 1 decimal number. 
 This feature only supports scalar interpretation and does not affect 
-the {help macro} contents.  
+the {help macro} contents.    {break}
 
 
 {title:Display directives}
@@ -86,7 +80,7 @@ to produce formatted output.  The directives are
 {synopt:{cmd:"}{it:double-quoted string}{cmd:"}}displays the string without
               the quotes{p_end}
 
-{synopt:{cmd:`"}{it:compound double-quoted string}{cmd:"'}}display the string
+{synopt:{cmd:{c 96}"}{it:compound double-quoted string}{cmd:"{c 39}}}display the string
               without the outer quotes; allows embedded quotes{p_end}
 
 {synopt:[{cmd:%}{it:fmt}] [{cmd:=}] {cmd:exp}}allows results to be formatted;
@@ -108,54 +102,21 @@ to produce formatted output.  The directives are
 {p2colreset}{...}
 
 
+{title:Mathematical notations}
 
-{bf:{dlgtab:txt in Weaver package}}
-
-{pstd}
-When the {help Weaver} package is in use, {cmd:txt} command prints string or numeric 
-values in Weaver log. It will also be able to interpret the {help Weaver Markup} codes.
-
-{pstd}
-{cmd:txt} command can also be used for writing mathematical notations in Weaver 
+{p 4 4 2}
+The {bf:txt} command can be used for writing mathematical notations in Weaver 
 package, both in HTML and LaTeX log files. Writing mathematical notations in the 
 HTML log is made possible by including {bf:MathJax} engine, a JavaScript-based 
-engine for rendering ASCii and LaTeX notations in HTML format. 
-To do so, notations should begin and end with double hashtags "{bf:##}" for 
-rendering notations within the text and triple hashtags "{bf:###}" for rendering 
+engine for rendering LaTeX notations in HTML format. 
+To do so, notations should begin with "{bf:\(}" and end with "{bf:\)}" for 
+rendering notations within the text and double dollar sign "{bf:$$}" or alternatively, 
+the "{bf:\[}" and "{bf:\]}" for rendering 
 notations in a separate line. For more information in this 
 regard, see {help Weaver_mathematical_notation:mathematical notations} documentation. 
 
-{pstd}
+{p 4 4 2}
 When Weaver package is running, the {opt c:ode} subcommand appends the dynamic text to the 
-log. For example, in HTML Weaver log, the dynamic text will no longer be formated 
-as paragraph (i.e. the {bf:<p>} and {bf:</p>} will not be added).
-This subcommand is only meant for advanced users who wish to customize or style the dynamic 
-text in the dynamic document. 
-
-
-{bf:{dlgtab:txt in MarkDoc package}}
-
-{pstd}
-{help MarkDoc} package has a very convenient way for writing and styling text. 
-However, it applies the {cmd:txt} command for writing and styling string, when 
-it includes a {help macro} and {help scalar}, or when there is a need to print 
-formatted dynamic text from a user-written program or within a loop. Note that this 
-command only functions for MarkDoc package when the Weaver log is closed or off. 
-Moreover, when {cmd:txt} command is used with MarkDoc, it does {ul:not}  
-support {help Weaver Markup}
-
-{pstd}
-When the MarkDoc package is in use, {cmd:txt} command prints string in smcl 
-log-file. However, in contrast to {help display} command, which prints text both in the 
-command and output (i.e. duplicating text), MarkDoc removes the {cmd:txt} 
-command automatically from the smcl log while converting it to another format such 
-as HTML, PDF, Docx, OpenOffice, etc. 
-
-{pstd}
-In MarkDoc package, the {opt c:ode} subcommand creates a code block, displaying the 
-dynamic text in mono-space text.
-
-
 
 {marker examples}{...}
 {title:Examples}
@@ -172,8 +133,29 @@ dynamic text in mono-space text.
 
 {pstd}If the text only includes string and macro, the double quotations can be ignored. 
 The {cmd:txt} command will interpret all of the {it:display_directives} and 
-scalars as string (so it's not recommended):
+scalars as string (so it{c 39}s not recommended):
 
 {phang2}{cmd:. local n 9.9}{p_end}
-{phang2}{cmd:. txt Not recommended, but you may also print the value of `n' without double quote}{p_end}
+{phang2}{cmd:. txt Not recommended, but you may also print the value of {c 96}n{c 39} without double quote}{p_end}
+
+
+{title:Author}
+
+{p 4 4 2}
+{bf:E. F. Haghish}       {break}
+Center for Medical Biometry and Medical Informatics    {break}
+University of Freiburg, Germany    {break}
+{it:and}    {break}
+Department of Mathematics and Computer Science    {break}
+University of Southern Denmark    {break}
+haghish@imbi.uni-freiburg.de    {break}
+
+{p 4 4 2}
+{browse "www.haghish.com/weaver":Weaver Homepage}           {break}
+Package Updates on  {browse "http://www.twitter.com/Haghish":Twitter} 
+
+    {hline}
+
+{p 4 4 2}
+This help file was dynamically produced by {help markdoc:MarkDoc Literate Programming package}
 

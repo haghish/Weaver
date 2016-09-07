@@ -1,10 +1,11 @@
 /*** DO NOT EDIT THIS LINE -----------------------------------------------------
-Version: 1.0.0
+Version:
 Title: img
-Description: Imports images and graphs into the dynamic document. 
+Description: captures and imports images and graphs into the dynamic document. 
 This command belongs to {bf:{help Weaver}} package but it also supports the 
-{bf:{help MarkDoc}} package. The syntax for both packages is the same but
-the __img__ command behave differently based on which of the packages is in use.
+{bf:{help MarkDoc}} package. This document only describes __txt__ in Weaver package. 
+For using the command in MarkDoc package, 
+[read the MarkDoc manual](https://github.com/haghish/MarkDoc/wiki/img/). 
 ----------------------------------------------------- DO NOT EDIT THIS LINE ***/
 
 
@@ -47,7 +48,7 @@ with {opt w:idth(int)} option for the same reason mentioned above. {p_end}
 {phang}{cmdab::left} this option is the default and it aligns the figure to the 
 left-side of the dynamic document. {p_end}
 
-{phang}{cmdab::left} aligns the figure to the center of the dynamic document. {p_end}
+{phang}{cmdab::center} aligns the figure to the center of the dynamic document. {p_end}
 
 Examples
 =================
@@ -88,7 +89,7 @@ Package Updates on [Twitter](http://www.twitter.com/Haghish)
 _This help file was dynamically produced by[MarkDoc Literate Programming package](http://www.haghish.com/markdoc/)_ 
 ***/
 
-
+cap prog drop img
 program define img
 version 11
 		
@@ -420,4 +421,4 @@ end
 // DYNAMIC HELP FILE
 // ===================================
 
-*markdoc img.ado, export(sthlp) replace
+markdoc img.ado, export(sthlp) replace
