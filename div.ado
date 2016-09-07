@@ -5,7 +5,6 @@ Description: __div__ performs Stata command and echoes the command or output or 
 to the HTML log file. This command belongs to {bf:{help weaver}} packages.
 ----------------------------------------------------- DO NOT EDIT THIS LINE ***/
 
-
 /***
 Syntax
 ======

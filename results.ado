@@ -28,10 +28,6 @@
 		  
 	2- If the Stata log is "off" or "closed" just create a text log and append 
 	   it to Weaver log. 
-	
-	
-	Ketchup version 1.0  July, 2014
-	Weaver version  3.3.0  January, 2016 
 */
 
 

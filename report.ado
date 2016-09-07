@@ -14,18 +14,6 @@
 	==============================
 	
 	create PDF report and opens it up, if the execute option is specified
-	
-	
-	Weaver Versions
-	==============================
-	
-	Weaver version 1.0  August,    2014
-	Weaver version 1.1  August,    2014
-	Weaver version 1.2  August,    2014
-	Weaver version 1.3  September, 2014 
-	Weaver version 1.4  October,   2014 
-	Weaver version 3.0  September, 2015
-	Weaver version 3.1  September, 2015
 */
 
 	program define report

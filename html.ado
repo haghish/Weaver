@@ -4,7 +4,6 @@ Title: html
 Description: writes the given text on the {help Weaver} log
 ----------------------------------------------------- DO NOT EDIT THIS LINE ***/
 
-
 /***
 
 Author
