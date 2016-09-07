@@ -18,12 +18,7 @@
 	This program is only executed by "weave.ado" program to add the Weaver Markup 
 	code the Weaver document. This code is written in JavaScript to process 
 	Weaver Markup syntax and convert it to HTML. 
-	
-	
-	Weaver Versions
-	==============================
-	
-	Weaver version 3.1  September, 2015
+
 */
 
 		

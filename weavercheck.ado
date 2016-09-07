@@ -31,15 +31,6 @@
 	result, the codes that checkes for Pandoc is deactivated. In addition, this 
 	version of Weaver only supports wkhtmltopdf driver automatically and no 
 	longer supports princexml pdf printer. 
-	
-	
-	
-	Weaver version 1.3  September, 2014
-	Weaver version 1.4  October, 2014 
-	Weaver version 1.5  April, 2015
-	Weaver version 3.0  September, 2015
-	Weaver version 3.1  September, 2015
-	Weaver version 3.3.0  January, 2016
 */
 
 		

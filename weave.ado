@@ -18,11 +18,6 @@
 	closing it, turning it temporarily off, or on. This is the most important 
 	ado file of the package that installs the required software on demand and 
 	ensures the software is running propperly. 
-	
-	Weaver Versions
-	------------------------------
-	Weaver version 1.0  August, 	2014
-	Weaver version 3.3.7  April, 2016
 */
 
 program define weave

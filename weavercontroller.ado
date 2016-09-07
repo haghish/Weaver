@@ -38,11 +38,6 @@
 	The changes made in this file are permanent and do not get replaced with the 
 	next package update. But you can always access them using the "weave setup" 
 	command
-		
-	
-	VERSIONS
-	-----------
-	version 3.3.3  February, 2016
 */
 	
 	

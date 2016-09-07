@@ -15,13 +15,6 @@
 	==============================
 	
 	The Weavend command closes the HTML log file and prints it into PDF
-	
-	
-	Weaver Versions
-	==============================
-	
-	Weaver version 1.0.0  August,     2014
-	Weaver version 3.3.7  April, 2016
 */
 
 program define weavend

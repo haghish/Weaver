@@ -11,9 +11,6 @@
 	
 	This program installs wkhtmltopdf software for Weaver package. The
 	software are downloaded from http://www.stata-blog.com/ 			
-	
-	
-	Weaver version 3.3.5
 */
 	
 	

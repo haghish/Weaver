@@ -26,11 +26,6 @@
 	CSS Documentation (recommended)
 	http://www.w3.org/TR/CSS2/selector.html
 	
-	
-	Weaver Versions
-	==============================
-	
-	Weaver version 3.1  September, 2015
 */
 
 		

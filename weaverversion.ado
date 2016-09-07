@@ -12,9 +12,6 @@
 				  
 	weaverversion checks the most recent published version of the Weaver package
 	and notifies the user if there is an available update.
-				  
-	Weaver version 1.0  July, 2014
-	Weaver version 3.3.6  February, 2016
 */
 
 	
@@ -23,7 +20,7 @@ program define weaverversion
 		
 	cap qui do "http://www.haghish.com/packages/update.do"
 		
-	global weaverversion 3.36
+	global weaverversion 3.38
 	global weavermathversion 2.0
 
 	if "$thenewestweaverversion" > "$weaverversion" {

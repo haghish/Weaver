@@ -8,12 +8,8 @@ University of Freiburg, Germany
    
                     * These software come with no warranty *
 	
-	
 	This program installs the EasingJS JavaScript to enlarge photos to 
 	full screen mode when they are clicked in the HTML log
-	
-	
-	Weaver version 3.2  October, 2015
 */
 	
 	
