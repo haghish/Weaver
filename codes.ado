@@ -14,14 +14,7 @@
 	===========
 	
 	shows Stata codes and hides the Results. 
-				  
-	Weaver version 1.0  August, 2014
-	Weaver version 1.1  August, 2014
-	Weaver version 1.2  August, 2014
-	Weaver version 1.3  September, 2014 
-	Weaver version 1.4  October, 2014
-	Weaver version 2.0  August, 2015 
-	Weaver version 3.1  September, 2015 
+ 
 */
 
 		
