@@ -114,6 +114,7 @@ version 11
 	}
 	
 	else {
+
 		local autoimg 1
 		// WF : Weaver-figure directory or Log-file directory for MarkDoc
 		if "$weaver" != "" {
@@ -122,7 +123,10 @@ version 11
 		}
 		if "$weaver" == "" {
 			quietly log query
-			if "`r(status)'" == "on" {
+			if "`r(status)'" != "on" {
+				quietly log query rundoc
+			}
+			*if "`r(status)'" == "on"  {
 				local path = r(filename)
 				if "`c(os)'" == "Windows" {
 					local path : subinstr local path "/" "\", all
@@ -138,12 +142,13 @@ version 11
 				// define the path to Weaver-figure
 				if "`c(os)'" == "Windows" local WF = "`WF'" + "\Weaver-figure\"
 				if "`c(os)'" != "Windows" local WF = "`WF'" + "/Weaver-figure/"
-			}
+			*}
 		}
-	
+		
 		// try to navigate to Weaver-figure, to check if it already exists
 		local d : pwd
 		capture cd "`WF'"
+		
 		if _rc != 0 {
 			mkdir "`WF'", public
 		}
@@ -315,7 +320,6 @@ version 11
 		
 		//If the smcl log file is on
 		quietly log query
-		if "`r(status)'" == "on" {
 			
 			if missing("`width'") & missing("`height'") {
 				local width 350
@@ -336,6 +340,7 @@ version 11
 			// Markdown syntax 
 			// -----------------------------------------------------------------
 			if "`markup'" == "markdown" {
+			
 				noisily display as txt _n ">![`title'](`using')" _n 
 			}
 			
@@ -401,19 +406,8 @@ version 11
 				
 				//if !missing("`autoimg'") noisily display _n "\begin{verbatim}" _n
 			}	
-		}
 	}
-	
-	// Check the Status of the log files for Weaver and MarkDoc					
-	qui log query
-	if "`r(status)'" ~= "on" & "$weaver" == "" {
-		di as txt _n(2) "{hline}"
-		di as error "{bf:Warning}" _n
-		di as txt "{p}log file is off! " _n 
-		di as txt "{c 149} If you wish to use {help weaver}  package, turn the html log on"  
-		di as txt "{c 149} If you wish to use {help markdoc} package, turn the smcl log on"		
-		di as txt "{hline}{smcl}"	_n
-	}
+
 		
 end
 
