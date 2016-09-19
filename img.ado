@@ -89,7 +89,7 @@ Package Updates on [Twitter](http://www.twitter.com/Haghish)
 _This help file was dynamically produced by[MarkDoc Literate Programming package](http://www.haghish.com/markdoc/)_ 
 ***/
 
-cap prog drop img
+*cap prog drop img
 program define img
 version 11
 		
@@ -421,4 +421,4 @@ end
 // DYNAMIC HELP FILE
 // ===================================
 
-markdoc img.ado, export(sthlp) replace
+*markdoc img.ado, export(sthlp) replace
