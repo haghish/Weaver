@@ -397,8 +397,11 @@ version 11
 	
 	if "$weaver" == "" | "$noisyWeaver" == "yes" {
 		
-		if "`code'" == "0" display as txt _n(2) `"> "' _c
-		if "`code'" == "1" display as txt _n(2) ">~~~" _n ">" _c
+		*display as txt _n
+		display as res " " _n
+		
+		if "`code'" == "0" display as txt `"> "' _c
+		if "`code'" == "1" display as txt ">~~~" _n ">" _c
 		
 		local 0 : subinstr local 0 "`" "{c 96}", all
 		local 0 : subinstr local 0 "'" "{c 39}", all
@@ -503,6 +506,9 @@ version 11
 		}
 		
 		if "`code'" == "1" display _n ">~~~" 
+		
+		//add a new line
+		display _n
 	}
 
 	// Check the Status of the log files for Weaver and MarkDoc					
