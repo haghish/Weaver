@@ -146,7 +146,7 @@ version 11
 		}
 		
 		// try to navigate to Weaver-figure, to check if it already exists
-		local d : pwd
+		local d `"`c(pwd)'`c(dirsep)'"'
 		capture cd "`WF'"
 		
 		if _rc != 0 {
