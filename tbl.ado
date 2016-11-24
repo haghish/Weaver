@@ -843,7 +843,7 @@ program define tbl
 		// Print the title
 		// -----------------------------------------------------------------
 		if "`markup'" == "markdown" & !missing("`title'") 	{					
-			display as txt _n `"> `title'"' 
+			display as txt _n `"> `macval(title)'"' 
 		}
 		
 		if "`markup'" == "html" {
