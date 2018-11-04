@@ -1,7 +1,7 @@
 {smcl}
 {* * KEEP THIS FILE MINIMAL, ESPECIALLY IF THE TEXT IS REPEATED IN OTHER HELP FILES}{...}
 {* *! version 3.2  06Oct2015}{...}
-{right:Version 3.4.0}
+{right:Version 3.4.3}
 {* *! cmd:help Weaver}{...}
 
 {phang}
