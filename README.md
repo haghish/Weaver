@@ -1,3 +1,5 @@
+> __Cite__: Haghish, E. F. (2016). Rethinking literate programming in statistics. The Stata Journal, 16(4), 938-963.
+
 # Weaver : a LaTeX and HTML log system for dynamic documents in Stata
 
 A general purpose package for creating dynamic report in HTML, LaTeX, and PDF.
